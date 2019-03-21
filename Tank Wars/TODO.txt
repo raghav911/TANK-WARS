@@ -1,0 +1,1 @@
+#1.) change the name of variable in PlayerControl in "global.h"
