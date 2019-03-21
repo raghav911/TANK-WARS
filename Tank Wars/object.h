@@ -10,6 +10,7 @@ protected:
 	Color color;			//color of GameObject
 	int size;				//size of GameObject
 	int state;				//state during game
+	int drawState;
 	double speed;			//speed of gameobject
 public:
 

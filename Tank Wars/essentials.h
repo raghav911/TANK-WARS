@@ -8,7 +8,7 @@ int height=720;
 
 enum STATE
 {
-	FORWARD=1,BACKWARD,UPWARD,DOWNWARD, DEAD
+	FORWARD=1,BACKWARD,UPWARD,DOWNWARD, NEUTRAL,DEAD
 };
 
 enum ControlState
@@ -62,3 +62,13 @@ struct Color
 	static Color TEAL()       {	Color temp(0,128,128)    ;return temp;}
 
 };
+
+void DrawRectangle(double x,double y,double len,double wid)
+{
+	glBegin(GL_QUADS);
+	glVertex2d(x + len / (double)2, y + wid / (double)2);//1st quad
+	glVertex2d(x + len / (double)2, y - wid / (double)2);//4th quad
+	glVertex2d(x - len / (double)2, y - wid / (double)2);//3rd quad
+	glVertex2d(x - len / (double)2, y + wid / (double)2);//2nd quad
+	glEnd();
+}

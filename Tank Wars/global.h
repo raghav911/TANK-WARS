@@ -112,12 +112,12 @@ void ResetGame()
 	P1HitTaken = 0;
 	P2HitTaken = 0;
 
-	P1 = new Player(20, height/2);
+	P1 = new Player(20, height/2,FORWARD);
 	P1->SetColor(Color::CYAN());
 	P1->Draw();
 	P1Alive = true;
 	
-	P2 = new Player(width-20, height/2);
+	P2 = new Player(width-20, height/2,BACKWARD);
 	P2->SetColor(Color::MAGENTA());
 	P2->Draw();
 	P2Alive = true;

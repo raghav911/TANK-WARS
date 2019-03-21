@@ -13,7 +13,7 @@ bool P2Alive = true;
 vector<Projectile*> P1Bullet;
 vector<Projectile*> P2Bullet;
 
-int projectileCount = 50;//how much bullet Players can Shoot
+int projectileCount = 4;//how much bullet Players can Shoot
 int maxHit = 3;
 int P1HitTaken=0;
 int P2HitTaken=0;

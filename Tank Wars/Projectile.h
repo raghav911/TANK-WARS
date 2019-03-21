@@ -7,8 +7,8 @@ class Projectile:public GameObject
 	
 	void init()
 	{
-		speed = 1.5;
-		size = 26;
+		speed = 2.5;
+		size = 30;
 		pWidth = 2;
 	}
 public:
@@ -67,23 +67,23 @@ void Projectile::Draw()
 		
 		glVertex2d(centre.x-size/2,centre.y+pWidth/2);
 		glVertex2d(centre.x-size/2,centre.y-pWidth/2);
-		glVertex2d(centre.x+size/2-10,centre.y-pWidth/2);
-		glVertex2d(centre.x+size/2-10,centre.y+ pWidth/2);
+		glVertex2d(centre.x+size/2-size/3,centre.y-pWidth/2);
+		glVertex2d(centre.x+size/2-size/3,centre.y+ pWidth/2);
 		glEnd();
 
 		glBegin(GL_TRIANGLES);//arrowhead
 		
 		glVertex2d(centre.x + size / 2, centre.y);
-		glVertex2d((centre.x + size / 2)-10, centre.y+10);
-		glVertex2d((centre.x + size / 2)-10, centre.y-10);
+		glVertex2d((centre.x + size / 2)-size/3, centre.y+size/3);
+		glVertex2d((centre.x + size / 2)-size/3, centre.y-size/3);
 		
 		glEnd();
 		break;
 	case BACKWARD:
 		glBegin(GL_QUADS);//back of arrow
 
-		glVertex2d(centre.x - size / 2+10, centre.y + pWidth / 2);
-		glVertex2d(centre.x - size / 2+10, centre.y - pWidth / 2);
+		glVertex2d(centre.x - size / 2+size/3, centre.y + pWidth / 2);
+		glVertex2d(centre.x - size / 2+size/3, centre.y - pWidth / 2);
 		glVertex2d(centre.x + size / 2, centre.y - pWidth / 2);
 		glVertex2d(centre.x + size / 2, centre.y + pWidth / 2);
 		glEnd();
@@ -91,8 +91,8 @@ void Projectile::Draw()
 		glBegin(GL_TRIANGLES);//arrowhead
 
 		glVertex2d(centre.x - size / 2, centre.y);
-		glVertex2d((centre.x - size / 2) + 10, centre.y + 10);
-		glVertex2d((centre.x - size / 2) + 10, centre.y - 10);
+		glVertex2d((centre.x - size / 2) + size/3, centre.y + size/3);
+		glVertex2d((centre.x - size / 2) + size/3, centre.y - size/3);
 
 		glEnd();
 		break;
@@ -101,23 +101,23 @@ void Projectile::Draw()
 
 		glVertex2d(centre.x - pWidth / 2, centre.y - size / 2);
 		glVertex2d(centre.x + pWidth / 2, centre.y - size/ 2);
-		glVertex2d(centre.x - pWidth / 2, centre.y + size / 2-10);
-		glVertex2d(centre.x + pWidth / 2, centre.y + size / 2-10);
+		glVertex2d(centre.x - pWidth / 2, centre.y + size / 2-size/3);
+		glVertex2d(centre.x + pWidth / 2, centre.y + size / 2-size/3);
 		glEnd();
 
 		glBegin(GL_TRIANGLES);//arrowhead
 
 		glVertex2d(centre.x, centre.y+size/2);
-		glVertex2d(centre.x - 10, centre.y+size/2 - 10);
-		glVertex2d(centre.x + 10, centre.y+size/2 - 10);
+		glVertex2d(centre.x - size/3, centre.y+size/2 - size/3);
+		glVertex2d(centre.x + size/3, centre.y+size/2 - size/3);
 
 		glEnd();
 		break;
 	case DOWNWARD:
 		glBegin(GL_QUADS);//back of arrow
 
-		glVertex2d(centre.x - pWidth / 2, centre.y - size / 2+10);
-		glVertex2d(centre.x + pWidth / 2, centre.y - size / 2+10);
+		glVertex2d(centre.x - pWidth / 2, centre.y - size / 2+size/3);
+		glVertex2d(centre.x + pWidth / 2, centre.y - size / 2+size/3);
 		glVertex2d(centre.x - pWidth / 2, centre.y + size / 2 );
 		glVertex2d(centre.x + pWidth / 2, centre.y + size / 2 );
 		glEnd();
@@ -125,8 +125,8 @@ void Projectile::Draw()
 		glBegin(GL_TRIANGLES);//arrowhead
 
 		glVertex2d(centre.x, centre.y - size / 2);
-		glVertex2d(centre.x - 10, centre.y - size / 2 + 10);
-		glVertex2d(centre.x + 10, centre.y - size / 2 + 10);
+		glVertex2d(centre.x - size/3, centre.y - size / 2 + size/3);
+		glVertex2d(centre.x + size/3, centre.y - size / 2 + size/3);
 
 		glEnd();
 		break;

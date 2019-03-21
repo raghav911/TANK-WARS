@@ -4,29 +4,32 @@
 
 class Player:public GameObject
 {
-	void Init()
+	void Init(int dState = UPWARD)
 	{
-		size = 20;
-		speed = 0.8;
+		size = 40;
+		speed = 1.2;
+		drawState = dState;
 	}
 public:
 	
-	Player(double x=0,double y=0)
+	Player(double x,double y, int dState)
 	{
 		centre.x = x;
 		centre.y = y;
-		Init();
+		Init(dState);
 	}
-	Player(const Vector2 point)
+	Player(const Vector2 &point)
 	{
 		centre = point;
+		cout << "lol";
 		Init();
 	}
 
-	void MoveForward()  { state = FORWARD; }
-	void MoveBackward() { state = BACKWARD; }
-	void MoveUpward()   { state = UPWARD; }
-	void MoveDownward() { state = DOWNWARD; }
+	void MoveForward()  { drawState = state = FORWARD; }
+	void MoveBackward() { drawState = state = BACKWARD; }
+	void MoveUpward()   { drawState = state = UPWARD; }
+	void MoveDownward() { drawState = state = DOWNWARD; }
+	void StopMovement() { drawState = state = NEUTRAL; }
 	//void Jump()         { state = JUMP; }   //plans to use on some other Projects ;)
 
 	void ReduceSize();
@@ -39,22 +42,29 @@ public:
 //---------------------~>[ UPDATE POSITION ]<~---------------------
 void Player::UpdatePos()
 {
+	double x_min, y_min, x_max, y_max;
+
+	x_min = centre.x - size / 2;
+	y_min = centre.y - size / 2;
+	x_max = centre.x + size / 2;
+	y_max = centre.y + size / 2;
+
 	switch(state)
 	{
 	case FORWARD:
-		if(centre.x<width-size)
+		if(x_max<width)
 		centre.x+=speed;
 		break;
 	case BACKWARD:
-		if(centre.x>size)
+		if(x_min>0)
 		centre.x-=speed;
 		break;
 	case DOWNWARD:
-		if (centre.y > size)
+		if (y_min>0)
 			centre.y-=speed;
 		break;
 	case UPWARD:
-		if (centre.y < height - size)
+		if (y_max<height)
 			centre.y+=speed;
 		break;
 	//case JUMP:
@@ -65,25 +75,132 @@ void Player::UpdatePos()
 //---------------------~>[ Reduce_size ]<~---------------------
 void Player:: ReduceSize()
 {
-	if (size > 10)
+	if (size > 5)
 	{
 		size -= 2;
-		if (centre.x < width / 2)//P1
-			centre.x -= 2;
-		else					//P2
-			centre.x += 2;
+		//if (centre.x < width / 2)//P1
+		//	centre.x -= 2;
+		//else					//P2
+		//	centre.x += 2;
 	}
 }
-
-//---------------------~>[ Draw ]<~---------------------
+//---------------------~>[ Sharma Draw ]<~---------------------
 void Player::Draw()
 {
 	this->color.SetGLColor();
 
-	glBegin(GL_QUADS);
-	glVertex2i(centre.x - size, centre.y - size);
-	glVertex2i(centre.x + size, centre.y - size);
-	glVertex2i(centre.x + size, centre.y + size);
-	glVertex2i(centre.x - size, centre.y + size);
+	
+	switch(drawState)
+	{
+	case FORWARD:
+		DrawRectangle(centre.x, centre.y, size, size);//Draw Basic Rectangle
+		glColor3f(0, 0, 0);//drawing Black Nozzle
+		DrawRectangle(centre.x + size / 2, centre.y, 0.8*size, 0.1*size);//nozzle
+		break;
+	case BACKWARD:
+		DrawRectangle(centre.x, centre.y, size, size);//Draw Basic Rectangle
+		glColor3f(0, 0, 0);//drawing Black Nozzle
+		DrawRectangle(centre.x - size / 2, centre.y, 0.8*size, 0.1*size);//nozzle
+		break;
+	case UPWARD:
+		DrawRectangle(centre.x, centre.y, size, size);//Draw Basic Rectangle
+		glColor3f(0, 0, 0);//drawing Black Nozzle
+		DrawRectangle(centre.x, centre.y + size / 2, 0.1*size, 0.8*size);//nozzle
+		break;
+	case DOWNWARD:
+		DrawRectangle(centre.x, centre.y, size, size);//Draw Basic Rectangle
+		glColor3f(0, 0, 0);//drawing Black Nozzle
+		DrawRectangle(centre.x, centre.y - size / 2, 0.1*size, 0.8*size);//nozzle
+		break;
+	}
+}
+//---------------------~>[ Sangu Draw ]<~---------------------
+//code incompletes will be completed soon
+/*
+void Player::Draw()
+{
+	//this->color.SetGLColor();
+	int x = centre.x;
+	int y = centre.y;
+
+	glColor3f(0.0, 0.0, 0.0);
+	glBegin(GL_POLYGON);
+	glVertex2d(x + 7 * size / 5 - size / 5, y - size / 2);
+	glVertex2d(x + 7 * size / 5 + size / 5, y - size / 2);
+	glVertex2d(x + 7 * size / 5 + size / 5, y + 9 * size / 4);
+	glVertex2d(x + 7 * size / 5 - size / 5, y + 9 * size / 4);
+	glEnd();
+	glColor3f(0.0, 0.0, 0.0);
+	glBegin(GL_POLYGON);
+	glVertex2d(x - 7 * size / 5 - size / 5, y - size / 2);
+	glVertex2d(x - 7 * size / 5 + size / 5, y - size / 2);
+	glVertex2d(x - 7 * size / 5 + size / 5, y + 9 * size / 4);
+	glVertex2d(x - 7 * size / 5 - size / 5, y + 9 * size / 4);
+	glEnd();
+	glColor3f(0.0, 0.0, 0.0);
+	glBegin(GL_POLYGON);
+	glVertex2d(x - size / 2, y - 5 * size / 4);
+	glVertex2d(x + size / 2, y - 5 * size / 4);
+	glVertex2d(x + 7 * size / 5, y - size / 2);
+	glVertex2d(x + 7 * size / 5, y + 3 * size - 3 * size / 4);
+	glVertex2d(x + size / 2, y + 3 * size);
+	glVertex2d(x - size / 2, y + 3 * size);
+	glVertex2d(x - 7 * size / 5, y + 3 * size - 3 * size / 4);
+	glVertex2d(x - 7 * size / 5, y - size / 2);
+	glEnd();
+
+	this->color.SetGLColor();
+	//glColor3f(1.0, 0.0, 0.0);
+	glBegin(GL_POLYGON);
+	glVertex2d(x - size / 2 + size / 7, y - 5 * size / 4 + size / 7);
+	glVertex2d(x + size / 2 - size / 7, y - 5 * size / 4 + size / 7);
+	glVertex2d(x + 7 * size / 5 - size / 7, y - size / 2);
+	glVertex2d(x + 7 * size / 5 - size / 7, y + 3 * size - 3 * size / 4 - size / 7);
+	glVertex2d(x + size / 2 - size / 7, y + 3 * size - size / 7);
+	glVertex2d(x - size / 2 + size / 7, y + 3 * size - size / 7);
+	glVertex2d(x - 7 * size / 5 + size / 7, y + 3 * size - 3 * size / 4 - size / 7);
+	glVertex2d(x - 7 * size / 5 + size / 7, y - size / 2 + size / 7);
+	glEnd();
+
+	glColor3f(0.0, 0.0, 0.0);
+	glBegin(GL_POLYGON);
+	glVertex2d(x - size / 2 - size / 10, y - size + size / 2 - size / 10);
+	glVertex2d(x + size / 2 + size / 10, y - size + size / 2 - size / 10);
+	glVertex2d(x + size + size / 10, y - size / 2 + size / 2 - size / 10);
+	glVertex2d(x + size + size / 10, y + size / 2 + size / 2 + size / 10);
+	glVertex2d(x + size / 2 + size / 10, y + size + size / 2 + size / 10);
+	glVertex2d(x - size / 2 - size / 10, y + size + size / 2 + size / 10);
+	glVertex2d(x - size - size / 10, y + size / 2 + size / 2 + size / 10);
+	glVertex2d(x - size - size / 10, y - size / 2 + size / 2 - size / 10);
+	glEnd();
+
+	this->color.SetGLColor();
+	//glColor3f(0.0, 0.0, 1.0);
+	glBegin(GL_POLYGON);
+	glVertex2d(x - size / 2, y - size + size / 2);
+	glVertex2d(x + size / 2, y - size + size / 2);
+	glVertex2d(x + size, y - size / 2 + size / 2);
+	glVertex2d(x + size, y + size / 2 + size / 2);
+	glVertex2d(x + size / 2, y + size + size / 2);
+	glVertex2d(x - size / 2, y + size + size / 2);
+	glVertex2d(x - size, y + size / 2 + size / 2);
+	glVertex2d(x - size, y - size / 2 + size / 2);
+	glEnd();
+
+	glColor3f(0.0, 0.0, 0.0);
+	glBegin(GL_POLYGON);
+	glVertex2d(x - size / 2, y + size + size / 2);
+	glVertex2d(x - size / 2, y + size + size / 5 + size / 2);
+	glVertex2d(x + size / 2, y + size + size / 5 + size / 2);
+	glVertex2d(x + size / 2, y + size + size / 2);
+	glEnd();
+
+	glColor3f(0.0, 0.0, 0.0);
+	glBegin(GL_POLYGON);
+	glVertex2d(x - size / 8, y + 6 * size / 5 + size / 2);
+	glVertex2d(x - size / 8, y + 6 * size / 4 + 2 * size + size / 2);
+	glVertex2d(x + size / 8, y + 6 * size / 4 + 2 * size + size / 2);
+	glVertex2d(x + size / 8, y + 6 * size / 5 + size / 2);
 	glEnd();
 }
+*/
