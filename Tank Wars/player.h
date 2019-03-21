@@ -9,6 +9,7 @@ class Player:public GameObject
 		size = 40;
 		speed = 1.2;
 		drawState = dState;
+		state = NEUTRAL;
 	}
 public:
 	

@@ -8,7 +8,7 @@
 
 	//BUG
 	#1.) Player Overlap
-	#2.) pretest bullet fire
+	#2.) pretest bullet fire  //done
 	#3.) bullet Crossing
 
 

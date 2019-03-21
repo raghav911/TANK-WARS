@@ -150,7 +150,7 @@ void PlayerControls(int key,int controllerType)
 			break;
 
 		case 32://P1 Shoots(space)
-			if (P1Bullet.size() < projectileCount)
+ 			if (P1->GetState()!=NEUTRAL && P1Bullet.size() < projectileCount)
 			{
 				P1Bullet.push_back(new Projectile(P1->GetCentre()));//P1 bullet based on the curr location of P1
 				P1Bullet[P1Bullet.size() - 1]->SetState(P1->GetState());
@@ -159,7 +159,7 @@ void PlayerControls(int key,int controllerType)
 			break;
 			//P1 controls ends here
 		case 13://P2 Shoots
-			if (P2Alive && P2Bullet.size() < projectileCount)
+			if (P2Alive && P2->GetState() != NEUTRAL && P2Bullet.size() < projectileCount)
 			{
 					P2Bullet.push_back(new Projectile(P2->GetCentre()));//P1 bullet based on the curr location of P1
 					P2Bullet[P2Bullet.size() - 1]->SetState(P2->GetState());
