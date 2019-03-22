@@ -8,7 +8,8 @@ class GameManager
 {
 	//ansilary
 	static bool P1CollidedWithP2(int state,Vector2 P1bottomLeft, Vector2 P1topRight, Vector2 P2bottomLeft, Vector2 P2topRight);
-	static bool BulletsColWithPlayer(vector<Projectile*> &Bullets,Player *p);
+	static bool BulletsColWithPlayer(vector<Projectile*> &Bullets,Player*);
+
 public:
 	//Physics2D
 	static void CheckBulletPlayerCollision();
@@ -46,6 +47,58 @@ bool GameManager:: P1CollidedWithP2(int state, Vector2 P1bottomLeft, Vector2 P1t
 
 	return hasCollided;
 }
+
+//---------------------~>[ Bullets Col With P ]<~---------------------
+bool GameManager:: BulletsColWithPlayer(vector<Projectile*> &Bullets, Player *p)
+{
+	unsigned int bulletCount = Bullets.size();
+	bool hit = false;
+
+	for (int i = 0; i < bulletCount; i++)//player 1 bullets
+	{
+		//cache Bullets[i] info
+		Vector2 bCentrePoint = Bullets[i]->GetCentre();
+		int bSize = Bullets[i]->GetSize();
+		int bState = Bullets[i]->GetState();
+
+		//check whether i bullet hit the player
+		int x_inc = 0, y_inc = 0;
+
+		//here we are finding the tip of the projectile
+		switch (bState)
+		{
+		case FORWARD:
+			x_inc = bSize / 2;
+			break;
+		case BACKWARD:
+			x_inc = -bSize / 2;
+			break;
+		case UPWARD:
+			y_inc = bSize / 2;
+			break;
+		case DOWNWARD:
+			y_inc = -bSize / 2;
+			break;
+		}
+
+		int x = bCentrePoint.x + x_inc;
+		int y = bCentrePoint.y + y_inc;
+
+		if (y > p->GetBottomLeft().y && y < p->GetTopRight().y && x>p->GetBottomLeft().x && x < p->GetTopRight().x)//bullet y is in range of P2
+		{
+			hit = true;
+			p->ReduceSize();
+		}
+
+		if (x > width || y > height || x < 0 || y < 0 || hit)
+		{
+			Bullets.erase(Bullets.begin() + i);
+			bulletCount--;
+			if (hit) return true;
+		}
+	}//for
+	return false;
+}
   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
  //					:~>  ANSILLARY ENDS <~:                      //
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<//
@@ -72,130 +125,28 @@ void GameManager::CheckBulletPlayerCollision()
 {
 	if (P1 == NULL || P2 == NULL) return;//defence
 
-	Vector2 bPoint;//bullet Point
-	int bSize;
-
-	//cached variables
-	int p1Size = P1->GetSize();
-	int p2Size = P2->GetSize();
-
-	Vector2 p1Point = P1->GetCentre();
-	Vector2 p2Point = P2->GetCentre();
-
-	int P1BulletCount = P1Bullet.size();
-	int P2BulletCount = P2Bullet.size();
-
-	for (int i = 0; i < P1BulletCount; i++)//player 1 bullets
+	//does P1 bullets Collided with P2
+	bool isP2hit = BulletsColWithPlayer(P1Bullet,P2);
+	if (isP2hit && ++P2HitTaken >= maxHit)//P1 WINS
 	{
-		bPoint = P1Bullet[i]->GetCentre();
-		bSize = P1Bullet[i]->GetSize();
+		++P1WinCount;
 
-		//check whether i bullet hit the P2 player
-		bool hit = false;
-		int bState = P1Bullet[i]->GetState();
-		int x_inc = 0, y_inc = 0;
-		
-		//here we are finding the tip of the projectile
-		switch (bState)
-		{
-		case FORWARD:
-			x_inc = bSize / 2;
-			break;
-		case BACKWARD:
-			x_inc = -bSize / 2;
-			break;
-		case UPWARD:
-			y_inc = bSize / 2;
-			break;
-		case DOWNWARD:
-			y_inc = -bSize / 2;
-			break;
-		}
-
-		int x = bPoint.x + x_inc;
-		int y = bPoint.y + y_inc;
-
-		if (y > (p2Point.y - p2Size) && y < (p2Point.y + p2Size))//bullet y is in range of P2
-		{
-			if (x > (p2Point.x - p2Size) && x < (p2Point.x + p2Size))
-			{
-				hit = true;
-				P2->ReduceSize();
-			}
-		}
-
-		if (x > width || y > height || x < 0 || y < 0 || hit)
-		{
-			P1Bullet.erase(P1Bullet.begin() + i);
-			P1BulletCount--;
-		}
-		//upward code in one function
-		if (hit && ++P2HitTaken >= maxHit)//P2 Loses
-		{
-			cout << "P1 WINS" << endl;
-
-			P2Alive = false;
-			P2Bullet.clear();
-			P2 = NULL;
-			isGameRunning = false;
-			return;
-		}
-	}//P1 Wins Or not
-
-	for (int i = 0; i < P2BulletCount; i++)//player 2 bullets
+		P2Alive = false;
+		P2Bullet.clear();
+		P2 = NULL;
+		isGameRunning = false;
+		return;
+	}
+	
+	//does P2 bullets Collided with P1
+	bool isP1hit = BulletsColWithPlayer(P2Bullet,P1);
+	if (isP1hit && ++P1HitTaken >= maxHit)//P2 WINS
 	{
-		bPoint = P2Bullet[i]->GetCentre();
-		bSize = P2Bullet[i]->GetSize();
+		++P2WinCount;
 
-		//check whether i bullet hit the P2 player
-		bool hit = false;
-		int bState = P2Bullet[i]->GetState();
-		int x_inc = 0, y_inc = 0;
-
-		switch (bState)//bulletState
-		{
-		case FORWARD:
-			x_inc = bSize / 2;
-			break;
-		case BACKWARD:
-			x_inc = -bSize / 2;
-			break;
-		case UPWARD:
-			y_inc = bSize / 2;
-			break;
-		case DOWNWARD:
-			y_inc = -bSize / 2;
-			break;
-		}
-
-		int x = bPoint.x + x_inc;
-		int y = bPoint.y + y_inc;
-
-		if (y > (p1Point.y - p1Size) && y < (p1Point.y + p1Size))//bullet y is in range of P2
-		{
-			if (x < (p1Point.x + p1Size) && x>(p1Point.x - p1Size))
-			{
-				hit = true;
-				P1->ReduceSize();
-			}
-		}
-		if (x > width || y > height || x < 0 || y < 0 || hit)//to vanish unused bullets of P2
-		{
-			P2Bullet.erase(P2Bullet.begin() + i);
-			P2BulletCount--;
-		}
-
-		//p1 loses and p2 wins
-		if (hit && ++P1HitTaken >= maxHit)//P1 loses
-		{
-			cout << "P2 WINS" << endl;
-
-			P1Alive = false;
-			P1 = NULL;
-			P1Bullet.clear();
-			isGameRunning = false;
-			return;
-		}
-
-	}//P2 Wins Or Not
+		P1Alive = false;
+		P1Bullet.clear();
+		P1 = NULL;
+		isGameRunning = false;
+	}
 }

@@ -13,11 +13,14 @@ bool P2Alive = true;
 vector<Projectile*> P1Bullet;
 vector<Projectile*> P2Bullet;
 
+//Game State variables
+
 int projectileCount = 4;							//how much bullet Players can Shoot
 int maxHit = 3;
 int P1HitTaken=0;
 int P2HitTaken=0;
+int P1WinCount = 0;
+int P2WinCount = 0;
 
 void ResetGame();									//defined in "global.h"
 void PlayerControls(int key,int controllerType);	//defined in "global.h"
-

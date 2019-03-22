@@ -106,4 +106,7 @@ void Canvas::GameOver()
 	}
 	DisplayText("PRESS 'r' to Restart", width / 2 - 120 - 1, height / 2, winColor);
 	DisplayText("PRESS 'r' to Restart", width / 2 - 120, height / 2, winColor);
+
+	cout << "P1 WINS:" << P1WinCount << endl;
+	cout << "P2 WINS:" << P2WinCount << endl;
 }
