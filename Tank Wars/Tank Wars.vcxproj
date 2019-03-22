@@ -158,6 +158,7 @@
     <ClInclude Include="..\..\ChromeGame\ChromeGame\object.h" />
     <ClInclude Include="..\..\ChromeGame\ChromeGame\player.h" />
     <ClInclude Include="..\..\ChromeGame\ChromeGame\Projectile.h" />
+    <ClInclude Include="GameManager.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>

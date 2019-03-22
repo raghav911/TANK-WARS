@@ -3,8 +3,8 @@
 //This File Contains All the Essential Structs And enums Used in the game.
 #include<GL/glut.h>
 
-int width = 1355;
-int height=720;
+int width = 1355;									//width of game
+int height=720;										//height of game
 
 enum STATE
 {
@@ -16,7 +16,7 @@ enum ControlState
 	KEYBOARD, KEYBOARDSPECIAL, MOUSE
 };
 
-struct Vector2
+struct Vector2										//point in 2D
 {
 	double x, y;
 	Vector2(double x = 0, double y = 0)
@@ -26,7 +26,7 @@ struct Vector2
 	}
 };
 
-struct Color
+struct Color										
 {
 	float r, g, b;
 
@@ -63,6 +63,9 @@ struct Color
 
 };
 
+
+//support function to reduce code size somewhere :)
+//draws Filled rectangle with centre,length,width
 void DrawRectangle(double x,double y,double len,double wid)
 {
 	glBegin(GL_QUADS);

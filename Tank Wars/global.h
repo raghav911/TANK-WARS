@@ -1,5 +1,5 @@
 #pragma once
-//#7.
+//#8.
 //this File is Responsible for all the Initialization and registering GLUT callbacks.
 
 
@@ -13,6 +13,7 @@ void Reshape(int,int);
 void Display();
 void Keyboard(unsigned char,int,int);
 void KeyboardSpec(int, int, int);
+
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //					:~>  INITIALIZERS <~:
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -28,7 +29,9 @@ void Init()
 
 	//initialize viewport
 	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
 	gluOrtho2D(0, width, 0, height);
+	glMatrixMode(GL_MODELVIEW);
 
 	//set bg color
 	glClearColor((double)57/255, (double)64/255, (double)62/255,1);
@@ -92,7 +95,7 @@ void Keyboard(unsigned char key, int, int)
 void KeyboardSpec(int key, int, int)
 {
 	//std::cout << (int)key;
-	PlayerControls((int)key, KEYBOARDSPECIAL);
+	PlayerControls(key, KEYBOARDSPECIAL);
 }
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 

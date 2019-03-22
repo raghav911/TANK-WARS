@@ -9,13 +9,13 @@ using namespace std;
 #include "player.h"
 #include "projectile.h"
 #include "GameArea.h"
+#include "GameManager.h"
 #include "canvas.h"
 #include "global.h"
 
 int main(int argc,char** argv)
 {
 	glutInit(&argc,argv);
-
 	Init();
 
 	ResetGame();

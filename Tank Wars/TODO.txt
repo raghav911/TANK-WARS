@@ -10,7 +10,12 @@
 	#1.) Player Overlap
 	#2.) pretest bullet fire  //done
 	#3.) bullet Crossing
+	#4.) reshape not working
 
+	//SPECIAL FEATURES
+	#1.) Bullet reflection
+	#2.) Bullet Portal
+	#3.) last bullet stand
 
 	//SPECILA POWERS
 	#3.) absorbing life from another Palyer

@@ -22,7 +22,6 @@ public:
 	Player(const Vector2 &point)
 	{
 		centre = point;
-		cout << "lol";
 		Init();
 	}
 
@@ -30,16 +29,28 @@ public:
 	void MoveBackward() { drawState = state = BACKWARD; }
 	void MoveUpward()   { drawState = state = UPWARD; }
 	void MoveDownward() { drawState = state = DOWNWARD; }
-	void StopMovement() { drawState = state = NEUTRAL; }
-	//void Jump()         { state = JUMP; }   //plans to use on some other Projects ;)
+	void StopMovement() { state = NEUTRAL; }
 
 	void ReduceSize();
-
-	//overrided func
+	Vector2 GetBottomLeft();   //returns bottomleft point of player area
+	Vector2 GetTopRight();    //returns topright point of player area
+	
+    //overrided func
 	void Draw();
 	void UpdatePos();
 };
 
+//---------------------~>[ Get Player Extremes POSITION ]<~---------------------
+Vector2 Player:: GetBottomLeft()   //returns bottomleft point of player area
+{
+	Vector2 temp(centre.x-size/2.0,centre.y-size/2.0);
+	return temp;
+}
+Vector2 Player:: GetTopRight()   //returns bottomleft point of player area
+{
+	Vector2 temp(centre.x+size/2.0,centre.y+size/2.0);
+	return temp;
+}
 //---------------------~>[ UPDATE POSITION ]<~---------------------
 void Player::UpdatePos()
 {
@@ -68,8 +79,6 @@ void Player::UpdatePos()
 		if (y_max<height)
 			centre.y+=speed;
 		break;
-	//case JUMP:
-	//	break;
 	}
 }
 
@@ -79,17 +88,12 @@ void Player:: ReduceSize()
 	if (size > 5)
 	{
 		size -= 2;
-		//if (centre.x < width / 2)//P1
-		//	centre.x -= 2;
-		//else					//P2
-		//	centre.x += 2;
 	}
 }
 //---------------------~>[ Sharma Draw ]<~---------------------
 void Player::Draw()
 {
 	this->color.SetGLColor();
-
 	
 	switch(drawState)
 	{
@@ -115,11 +119,27 @@ void Player::Draw()
 		break;
 	}
 }
+
 //---------------------~>[ Sangu Draw ]<~---------------------
 //code incompletes will be completed soon
+//these coordinates are the coordinates of the TANK facing Upwards
+
 /*
 void Player::Draw()
 {
+	glPushMatrix();
+	switch (drawState)
+	{
+	case FORWARD:
+		glTranslatef(-centre.x, -centre.y, 0);
+		glRotatef(90, centre.x, centre.y, 1);
+		glTranslatef(centre.x, centre.y, 0);
+		break;
+	}
+
+	DrawRectangle(centre.x, centre.y, size, size*0.5);
+	glPopMatrix();
+	
 	//this->color.SetGLColor();
 	int x = centre.x;
 	int y = centre.y;
@@ -203,5 +223,7 @@ void Player::Draw()
 	glVertex2d(x + size / 8, y + 6 * size / 4 + 2 * size + size / 2);
 	glVertex2d(x + size / 8, y + 6 * size / 5 + size / 2);
 	glEnd();
+
+	glPopMatrix();
 }
 */
