@@ -2,6 +2,8 @@
 #include<Gl/glut.h>
 #include<iostream>
 #include <vector>
+#include<stdlib.h>
+
 using namespace std;
 
 #include "essentials.h"
@@ -21,4 +23,5 @@ int main(int argc,char** argv)
 	ResetGame();
 
 	glutMainLoop();
+	return 0;
 }

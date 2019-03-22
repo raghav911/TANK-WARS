@@ -16,6 +16,8 @@
 	#1.) Bullet reflection
 	#2.) Bullet Portal
 	#3.) last bullet stand
+	#4.) Score Display 
+	#5.) Player dash ability
 
 	//SPECILA POWERS
 	#3.) absorbing life from another Palyer

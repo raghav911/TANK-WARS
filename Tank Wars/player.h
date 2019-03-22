@@ -7,7 +7,7 @@ class Player:public GameObject
 	void Init(int dState = UPWARD)
 	{
 		size = 40;
-		speed = 1.2;
+		speed = 1.5;
 		drawState = dState;
 		state = NEUTRAL;
 	}
@@ -32,12 +32,12 @@ public:
 	void StopMovement() { state = NEUTRAL; }
 
 	void ReduceSize();
-	Vector2 GetBottomLeft();   //returns bottomleft point of player area
-	Vector2 GetTopRight();    //returns topright point of player area
 	
     //overrided func
 	void Draw();
 	void UpdatePos();
+	Vector2 GetTopRight();    //returns topright point of player area
+	Vector2 GetBottomLeft();   //returns bottomleft point of player area
 };
 
 //---------------------~>[ Get Player Extremes POSITION ]<~---------------------
@@ -64,7 +64,7 @@ void Player::UpdatePos()
 	switch(state)
 	{
 	case FORWARD:
-		if(x_max<width)
+		if(x_max<WIDTH)
 		centre.x+=speed;
 		break;
 	case BACKWARD:
@@ -76,7 +76,7 @@ void Player::UpdatePos()
 			centre.y-=speed;
 		break;
 	case UPWARD:
-		if (y_max<height)
+		if (y_max<HEIGHT)
 			centre.y+=speed;
 		break;
 	}
@@ -123,8 +123,8 @@ void Player::Draw()
 //---------------------~>[ Sangu Draw ]<~---------------------
 //code incompletes will be completed soon
 //these coordinates are the coordinates of the TANK facing Upwards
-
 /*
+
 void Player::Draw()
 {
 	glPushMatrix();

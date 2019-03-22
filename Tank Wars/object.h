@@ -26,13 +26,16 @@ public:
 	Color GetPlayerColor()  { return color; }
 	int GetSize()           { return size; }
 
-
 	//virtual func
 	virtual void Draw() = 0;
 	virtual void UpdatePos() = 0;
+	virtual Vector2 GetTopRight()=0;    //returns topright point of object area
+	virtual Vector2 GetBottomLeft()=0;   //returns bottomleft point of object area
 };
 
 
-  //                                   FUTURE NOTES                                              //
- //state and drawState are different because object can be neutral(stationary) but we still need//
-//                     to draw the previous state of object                                    //
+    //                                   FUTURE NOTES                                              //
+   //state and drawState are different because object can be neutral(stationary) but we still need//
+  //                     to draw the previous state of object                                    //
+ //GetTopRight & GetBottomLeft are virtual because every gameobject have their own              //
+//boudary(colliders) and my game supports only BOX Collider                                    //

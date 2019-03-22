@@ -24,13 +24,13 @@ void Init()
 {
 	//initialize window
 	glutInitWindowPosition(0,0);
-	glutInitWindowSize(width,height);
+	glutInitWindowSize(WIDTH,HEIGHT);
 	glutCreateWindow("TANK WARS");
 
 	//initialize viewport
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluOrtho2D(0, width, 0, height);
+	gluOrtho2D(0, WIDTH, 0, HEIGHT);
 	glMatrixMode(GL_MODELVIEW);
 
 	//set bg color
@@ -66,10 +66,10 @@ void InitCallbackFunc()
 //---------------------~>[ Reshape ]<~---------------------
 void Reshape(int x,int y)
 {
-	if (width == x && height == y) return;
+	if (WIDTH == x && HEIGHT == y) return;
 	
 	//preventing user from reshaping the window :)
-	glutReshapeWindow(width,height);
+	glutReshapeWindow(WIDTH,HEIGHT);
 	clear();
 }
 
@@ -115,12 +115,12 @@ void ResetGame()
 	P1HitTaken = 0;
 	P2HitTaken = 0;
 
-	P1 = new Player(20, height/2,FORWARD);
+	P1 = new Player(20, HEIGHT/2,FORWARD);
 	P1->SetColor(Color::CYAN());
 	P1->Draw();
 	P1Alive = true;
 	
-	P2 = new Player(width-20, height/2,BACKWARD);
+	P2 = new Player(WIDTH-20, HEIGHT/2,BACKWARD);
 	P2->SetColor(Color::MAGENTA());
 	P2->Draw();
 	P2Alive = true;

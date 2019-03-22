@@ -3,8 +3,8 @@
 //This File Contains All the Essential Structs And enums Used in the game.
 #include<GL/glut.h>
 
-int width = 1355;									//width of game
-int height=720;										//height of game
+int WIDTH = 1355;									//width of game
+int HEIGHT=720;										//height of game
 
 enum STATE
 {
@@ -73,5 +73,17 @@ void DrawRectangle(double x,double y,double len,double wid)
 	glVertex2d(x + len / (double)2, y - wid / (double)2);//4th quad
 	glVertex2d(x - len / (double)2, y - wid / (double)2);//3rd quad
 	glVertex2d(x - len / (double)2, y + wid / (double)2);//2nd quad
+	glEnd();
+}
+
+//support function to reduce code size somewhere :)
+//draws Filled rectangle with bottomleft,topright points
+void DrawRectangleCorner(double x_min, double y_min, double x_max, double y_max)
+{
+	glBegin(GL_QUADS);
+	glVertex2d(x_min,y_min);
+	glVertex2d(x_max,y_min);
+	glVertex2d(x_max,y_max);
+	glVertex2d(x_min,y_max);
 	glEnd();
 }

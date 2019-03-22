@@ -7,13 +7,14 @@
 class GameManager
 {
 	//ansilary
-	static bool P1CollidedWithP2(int state,Vector2 P1bottomLeft, Vector2 P1topRight, Vector2 P2bottomLeft, Vector2 P2topRight);
+	static bool Obj1ColWithObj2(GameObject *Obj1,GameObject *Obj2);
 	static bool BulletsColWithPlayer(vector<Projectile*> &Bullets,Player*);
 
 public:
 	//Physics2D
 	static void CheckBulletPlayerCollision();
 	static void CheckPlayerPlayerCollision();
+	static void CheckBulletBulletCollision();
 
 };
 
@@ -22,10 +23,16 @@ public:
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<//
 
 //---------------------~>[ P1 collided with P2 ]<~---------------------
-bool GameManager:: P1CollidedWithP2(int state, Vector2 P1bottomLeft, Vector2 P1topRight, Vector2 P2bottomLeft, Vector2 P2topRight)
+bool GameManager:: Obj1ColWithObj2(GameObject *obj1,GameObject *obj2)
 {
+
 	bool hasCollided = false;
-	switch (state)
+	Vector2 P1topRight   = obj1->GetTopRight();
+	Vector2 P1bottomLeft = obj1->GetBottomLeft();
+	Vector2 P2topRight   = obj2->GetTopRight();
+	Vector2 P2bottomLeft = obj2->GetBottomLeft();
+
+	switch (obj1->GetState())
 	{
 	case FORWARD:
 		if (P1topRight.y >= P2bottomLeft.y && P1bottomLeft.y <= P2topRight.y && P1topRight.x >= P2bottomLeft.x && P1topRight.x < P2topRight.x)
@@ -90,7 +97,7 @@ bool GameManager:: BulletsColWithPlayer(vector<Projectile*> &Bullets, Player *p)
 			p->ReduceSize();
 		}
 
-		if (x > width || y > height || x < 0 || y < 0 || hit)
+		if (x > WIDTH || y > HEIGHT || x < 0 || y < 0 || hit)
 		{
 			Bullets.erase(Bullets.begin() + i);
 			bulletCount--;
@@ -108,15 +115,9 @@ void GameManager::CheckPlayerPlayerCollision()
 {
 	if (P1 == NULL || P2 == NULL) return;//defence
 
-	//cached variables
-	Vector2 P1bottomLeft = P1->GetBottomLeft();
-	Vector2 P1topRight   = P1->GetTopRight();
-	Vector2 P2bottomLeft = P2->GetBottomLeft();
-	Vector2 P2topRight   = P2->GetTopRight();
-
-	if (P1CollidedWithP2(P1->GetState(), P1bottomLeft, P1topRight, P2bottomLeft, P2topRight))
+	if ( Obj1ColWithObj2(P1,P2) )
 		P1->StopMovement();
-	if (P1CollidedWithP2(P2->GetState(), P2bottomLeft, P2topRight, P1bottomLeft, P1topRight))
+	if ( Obj1ColWithObj2(P2,P1) )
 		P2->StopMovement();
 }
 
@@ -148,5 +149,25 @@ void GameManager::CheckBulletPlayerCollision()
 		P1Bullet.clear();
 		P1 = NULL;
 		isGameRunning = false;
+	}
+}
+
+//---------------------~>[ Bullet Bullet Collision ]<~---------------------
+void GameManager:: CheckBulletBulletCollision()
+{
+	for (int i = 0; i < P1Bullet.size() ; ++i)
+	{
+		for (int j = 0; j < P2Bullet.size(); ++j)
+		{
+			//if i bullet of P1 collides with j bullet of P2 then desroy both Bullets
+			if (Obj1ColWithObj2(P1Bullet[i], P2Bullet[j]))
+			{
+				P1Bullet.erase(P1Bullet.begin()+i);
+				P2Bullet.erase(P2Bullet.begin()+j);
+				
+				i--;
+				break;
+			}
+		}
 	}
 }

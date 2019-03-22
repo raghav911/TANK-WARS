@@ -51,13 +51,14 @@ void  Canvas::Update(int time=100)
 	Canvas::Clear();
 
 	
-	GameManager::CheckBulletPlayerCollision();
 	GameManager::CheckPlayerPlayerCollision();
+	GameManager::CheckBulletBulletCollision();
+	GameManager::CheckBulletPlayerCollision();
 
 	DrawPlayers();									//order matters this call should be below Physics2D
 	
 	glutSwapBuffers();
-	glutTimerFunc(5,Update,0);					   //controls FramePerSec of the game
+	glutTimerFunc(GameSpeed,Update,0);					   //controls FramePerSec of the game
 }
 
 //---------------------~>[ Drawplayers ]<~---------------------
@@ -95,18 +96,20 @@ void Canvas::GameOver()
 	if (P1Alive)
 	{
 		winColor = P1->GetPlayerColor();
-		DisplayText("P1 WINS", width / 2 - 60 - 1, height / 2 + 50, Color::TEAL());
-		DisplayText("P1 WINS", width / 2 - 60, height / 2 + 50, Color::TEAL());
+		DisplayText("P1 WINS", WIDTH / 2 - 60 - 1, HEIGHT / 2 + 50, Color::TEAL());
+		DisplayText("P1 WINS", WIDTH / 2 - 60, HEIGHT / 2 + 50, Color::TEAL());
 	}
 	else
 	{
 		winColor = P2->GetPlayerColor();
-		DisplayText("P2 WINS", width / 2 - 60 - 1, height / 2 + 50, Color::TEAL());
-		DisplayText("P2 WINS", width / 2 - 60, height / 2 + 50, Color::TEAL());
+		DisplayText("P2 WINS", WIDTH / 2 - 60 - 1, HEIGHT / 2 + 50, Color::TEAL());
+		DisplayText("P2 WINS", WIDTH / 2 - 60, HEIGHT / 2 + 50, Color::TEAL());
 	}
-	DisplayText("PRESS 'r' to Restart", width / 2 - 120 - 1, height / 2, winColor);
-	DisplayText("PRESS 'r' to Restart", width / 2 - 120, height / 2, winColor);
+	DisplayText("PRESS 'r' to Restart", WIDTH / 2 - 120 - 1, HEIGHT / 2, winColor);
+	DisplayText("PRESS 'r' to Restart", WIDTH / 2 - 120, HEIGHT / 2, winColor);
 
+	//system("clear");				// for linux users
+	system("CLS");					//for window users
 	cout << "P1 WINS:" << P1WinCount << endl;
 	cout << "P2 WINS:" << P2WinCount << endl;
 }

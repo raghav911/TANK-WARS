@@ -15,6 +15,7 @@ vector<Projectile*> P2Bullet;
 
 //Game State variables
 
+int GameSpeed = 5;									//higher the value slower the game
 int projectileCount = 4;							//how much bullet Players can Shoot
 int maxHit = 3;
 int P1HitTaken=0;
