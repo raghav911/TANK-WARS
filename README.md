@@ -1,5 +1,5 @@
 # TANK-WARS
-2D game made in c++ &amp; OpenGl
+2D game made in c++ &amp; OpenGl using Object Oriented Programming
 
 It is 2 Player Game.Where you Compete against each other in different maps.
 you can even create your own custom maps( Tinker with "LevelInformation.h").
