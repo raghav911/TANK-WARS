@@ -13,7 +13,7 @@
 	#4.) reshape not working  //done
 
 	//SPECIAL FEATURES
-	#1.) OBSTACLE
+	#1.) OBSTACLE			  //done
 	#1.) Bullet reflection
 	#2.) Bullet Portal
 	#3.) last bullet stand

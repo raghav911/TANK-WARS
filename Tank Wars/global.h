@@ -123,13 +123,17 @@ void ResetGame()
 	P1HitTaken = 0;
 	P2HitTaken = 0;
 
+	//Player Colors
+	P1color.SetColor(Color::CYAN());
+	P2color.SetColor(Color::MAGENTA());
+
 	P1 = new Player(20, GAME_HEIGHT/2,FORWARD);
-	P1->SetColor(Color::CYAN());
+	P1->SetColor(P1color);
 	P1->Draw();
 	P1Alive = true;
 	
 	P2 = new Player(GAME_WIDTH-20, GAME_HEIGHT/2,BACKWARD);
-	P2->SetColor(Color::MAGENTA());
+	P2->SetColor(P2color);
 	P2->Draw();
 	P2Alive = true;
 

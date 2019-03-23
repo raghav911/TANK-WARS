@@ -6,6 +6,7 @@
 
 int GAME_WIDTH = 1355;									//width of game
 int GAME_HEIGHT=720;									//height of game
+int GAME_MENU_AREA = 55;							    //top area of the game
 
 enum STATE
 {
@@ -46,6 +47,12 @@ struct Color
 		this->b = (float)b / 255;
 	}
 
+	void SetColor(const Color& c)
+	{
+		this->r = c.r;
+		this->g = c.g;
+		this->b = c.b;
+	}
 	//change color of OpenGL
 	void SetGLColor()
 	{

@@ -21,6 +21,9 @@ void Level::Level1Obstacles(vector<Obstacle*> &obstacle)
 	//doing this map design manually
 	obstacle.clear();
 
+	obstacle.push_back(new Obstacle(GAME_WIDTH/2,GAME_HEIGHT-GAME_MENU_AREA,2,GAME_WIDTH));
+	obstacle[0]->SetColor(Color::RED());
+
 	obstacle.push_back(new Obstacle(GAME_WIDTH/2.0,GAME_HEIGHT/2.0,GAME_HEIGHT/2.0,40));
-	obstacle[0]->SetColor(Color::BLACK());
+	obstacle[1]->SetColor(Color::BLACK());
 }

@@ -11,6 +11,12 @@ Player *P2 = NULL;
 bool P1Alive = true;
 bool P2Alive = true;
 
+string P1Score="0000";
+string P2Score="0000";
+
+Color P1color;
+Color P2color;
+
 vector<Projectile*> P1Bullet;
 vector<Projectile*> P2Bullet;
 vector<Obstacle*>   gameObstacles;
