@@ -9,8 +9,8 @@ class Projectile:public GameObject
 	{
 		speed = 2.5;
 		size = 30;
-		pWidth = 2;
-		headRatio = 3;
+		pWidth = 5;
+		headRatio = 3.5;
 	}
 public:
 	Projectile(double x=0,double y=0)

@@ -60,45 +60,13 @@ bool GameManager:: Obj1ColWithObj2(GameObject *obj1,GameObject *obj2)
 bool GameManager:: BulletsColWithPlayer(vector<Projectile*> &Bullets, Player *p)
 {
 	unsigned int bulletCount = Bullets.size();
-	bool hit = false;
 
 	for (int i = 0; i < bulletCount; i++)//player 1 bullets
 	{
-		//cache Bullets[i] info
-		Vector2 bCentrePoint = Bullets[i]->GetCentre();
-		int bSize = Bullets[i]->GetSize();
-		int bState = Bullets[i]->GetState();
-
-		//check whether i bullet hit the player
-		int x_inc = 0, y_inc = 0;
-
-		//here we are finding the tip of the projectile
-		switch (bState)
-		{
-		case FORWARD:
-			x_inc = bSize / 2;
-			break;
-		case BACKWARD:
-			x_inc = -bSize / 2;
-			break;
-		case UPWARD:
-			y_inc = bSize / 2;
-			break;
-		case DOWNWARD:
-			y_inc = -bSize / 2;
-			break;
-		}
-
-		int x = bCentrePoint.x + x_inc;
-		int y = bCentrePoint.y + y_inc;
-
-		if (y > p->GetBottomLeft().y && y < p->GetTopRight().y && x>p->GetBottomLeft().x && x < p->GetTopRight().x)//bullet y is in range of P2
-		{
-			hit = true;
-			p->ReduceSize();
-		}
-
-		if (x > WIDTH || y > HEIGHT || x < 0 || y < 0 || hit)
+		bool hit = Obj1ColWithObj2(Bullets[i],p);
+		Vector2 bulletCentre = Bullets[i]->GetCentre();
+		
+		if (bulletCentre.x > WIDTH || bulletCentre.y > HEIGHT || bulletCentre.x < 0 || bulletCentre.y < 0 || hit)
 		{
 			Bullets.erase(Bullets.begin() + i);
 			bulletCount--;
@@ -128,28 +96,36 @@ void GameManager::CheckBulletPlayerCollision()
 	if (P1 == NULL || P2 == NULL) return;//defence
 
 	//does P1 bullets Collided with P2
-	bool isP2hit = BulletsColWithPlayer(P1Bullet,P2);
-	if (isP2hit && ++P2HitTaken >= maxHit)//P1 WINS
-	{
-		++P1WinCount;
+	bool isP2hit = BulletsColWithPlayer(P1Bullet, P2);
 
-		P2Alive = false;
-		P2Bullet.clear();
-		P2 = NULL;
-		isGameRunning = false;
-		return;
+	if (isP2hit)
+	{
+		P2->ReduceSize();
+		if (++P2HitTaken >= maxHit)//P1 WINS
+		{
+			++P1WinCount;
+
+			P2Alive = false;
+			P2Bullet.clear();
+			P2 = NULL;
+			isGameRunning = false;
+			return;
+		}
 	}
-	
 	//does P2 bullets Collided with P1
-	bool isP1hit = BulletsColWithPlayer(P2Bullet,P1);
-	if (isP1hit && ++P1HitTaken >= maxHit)//P2 WINS
+	bool isP1hit = BulletsColWithPlayer(P2Bullet, P1);
+	if (isP1hit)
 	{
-		++P2WinCount;
+		P1->ReduceSize();
+		if (isP1hit && ++P1HitTaken >= maxHit)//P2 WINS
+		{
+			++P2WinCount;
 
-		P1Alive = false;
-		P1Bullet.clear();
-		P1 = NULL;
-		isGameRunning = false;
+			P1Alive = false;
+			P1Bullet.clear();
+			P1 = NULL;
+			isGameRunning = false;
+		}
 	}
 }
 

@@ -151,15 +151,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\ChromeGame\ChromeGame\canvas.h" />
-    <ClInclude Include="..\..\ChromeGame\ChromeGame\essentials.h" />
-    <ClInclude Include="..\..\ChromeGame\ChromeGame\GameArea.h" />
-    <ClInclude Include="..\..\ChromeGame\ChromeGame\global.h" />
-    <ClInclude Include="..\..\ChromeGame\ChromeGame\object.h" />
-    <ClInclude Include="..\..\ChromeGame\ChromeGame\player.h" />
-    <ClInclude Include="..\..\ChromeGame\ChromeGame\Projectile.h" />
+    <ClInclude Include="canvas.h" />
+    <ClInclude Include="essentials.h" />
+    <ClInclude Include="GameArea.h" />
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="global.h" />
+    <ClInclude Include="object.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="player.h" />
+    <ClInclude Include="Projectile.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

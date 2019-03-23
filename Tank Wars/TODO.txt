@@ -10,14 +10,14 @@
 	#1.) Player Overlap       //done
 	#2.) pretest bullet fire  //done
 	#3.) bullet Crossing      //done
-	#4.) reshape not working
+	#4.) reshape not working  
 
 	//SPECIAL FEATURES
 	#1.) Bullet reflection
 	#2.) Bullet Portal
 	#3.) last bullet stand
 	#4.) Score Display 
-	#5.) Player dash ability
+	#5.) Player dash ability   //high priority
 
 	//SPECILA POWERS
 	#1.) absorbing life from another Palyer

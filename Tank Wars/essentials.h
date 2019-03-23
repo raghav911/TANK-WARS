@@ -1,5 +1,5 @@
 #pragma once
-//#1.
+//#1. Tank Wars
 //This File Contains All the Essential Structs And enums Used in the game.
 #include<GL/glut.h>
 
