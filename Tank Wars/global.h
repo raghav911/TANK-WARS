@@ -1,3 +1,4 @@
+//TANK WARS
 #pragma once
 //#8.
 //this File is Responsible for all the Initialization and registering GLUT callbacks.
@@ -24,14 +25,14 @@ void Init()
 {
 	//initialize window
 	glutInitWindowPosition(0,0);
-	glutInitWindowSize(WIDTH,HEIGHT);
+	glutInitWindowSize(GAME_WIDTH,GAME_HEIGHT);
 	glutCreateWindow("TANK WARS");
 
 	//initialize viewport
 	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluOrtho2D(0, WIDTH, 0, HEIGHT);
-	glMatrixMode(GL_MODELVIEW);
+	//glLoadIdentity();
+	gluOrtho2D(0, GAME_WIDTH, 0, GAME_HEIGHT);
+	//glMatrixMode(GL_MODELVIEW);
 
 	//set bg color
 	glClearColor((double)57/255, (double)64/255, (double)62/255,1);
@@ -51,10 +52,10 @@ void clear()
 //---------------------~>[ CALL_BACKS ]<~---------------------
 void InitCallbackFunc()
 {
-	glutReshapeFunc(Reshape);
 	glutDisplayFunc(Display);
 	glutKeyboardFunc(Keyboard);
 	glutSpecialFunc(KeyboardSpec);
+	glutReshapeFunc(Reshape);
 }
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
@@ -66,10 +67,10 @@ void InitCallbackFunc()
 //---------------------~>[ Reshape ]<~---------------------
 void Reshape(int x,int y)
 {
-	if (WIDTH == x && HEIGHT == y) return;
+	if (GAME_WIDTH == x && GAME_HEIGHT == y) return;
 	
 	//preventing user from reshaping the window :)
-	glutReshapeWindow(WIDTH,HEIGHT);
+	glutReshapeWindow(GAME_WIDTH,GAME_HEIGHT);
 	clear();
 }
 
@@ -115,12 +116,12 @@ void ResetGame()
 	P1HitTaken = 0;
 	P2HitTaken = 0;
 
-	P1 = new Player(20, HEIGHT/2,FORWARD);
+	P1 = new Player(20, GAME_HEIGHT/2,FORWARD);
 	P1->SetColor(Color::CYAN());
 	P1->Draw();
 	P1Alive = true;
 	
-	P2 = new Player(WIDTH-20, HEIGHT/2,BACKWARD);
+	P2 = new Player(GAME_WIDTH-20, GAME_HEIGHT/2,BACKWARD);
 	P2->SetColor(Color::MAGENTA());
 	P2->Draw();
 	P2Alive = true;

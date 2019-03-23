@@ -1,3 +1,4 @@
+//TANK WARS
 #pragma once
 //#6.
 //This File is Responsible for all the Physics,Collisions,etc Involved in the Game
@@ -66,7 +67,7 @@ bool GameManager:: BulletsColWithPlayer(vector<Projectile*> &Bullets, Player *p)
 		bool hit = Obj1ColWithObj2(Bullets[i],p);
 		Vector2 bulletCentre = Bullets[i]->GetCentre();
 		
-		if (bulletCentre.x > WIDTH || bulletCentre.y > HEIGHT || bulletCentre.x < 0 || bulletCentre.y < 0 || hit)
+		if (bulletCentre.x > GAME_WIDTH || bulletCentre.y > GAME_HEIGHT || bulletCentre.x < 0 || bulletCentre.y < 0 || hit)
 		{
 			Bullets.erase(Bullets.begin() + i);
 			bulletCount--;

@@ -1,3 +1,4 @@
+//TANK WARS
 #pragma once
 //#7.
 //This File is Responsible For Drawing on The Screen.
@@ -96,17 +97,17 @@ void Canvas::GameOver()
 	if (P1Alive)
 	{
 		winColor = P1->GetPlayerColor();
-		DisplayText("P1 WINS", WIDTH / 2 - 60 - 1, HEIGHT / 2 + 50, Color::TEAL());
-		DisplayText("P1 WINS", WIDTH / 2 - 60, HEIGHT / 2 + 50, Color::TEAL());
+		DisplayText("P1 WINS", GAME_WIDTH / 2 - 60 - 1, GAME_HEIGHT / 2 + 50, Color::TEAL());
+		DisplayText("P1 WINS", GAME_WIDTH / 2 - 60, GAME_HEIGHT / 2 + 50, Color::TEAL());
 	}
 	else
 	{
 		winColor = P2->GetPlayerColor();
-		DisplayText("P2 WINS", WIDTH / 2 - 60 - 1, HEIGHT / 2 + 50, Color::TEAL());
-		DisplayText("P2 WINS", WIDTH / 2 - 60, HEIGHT / 2 + 50, Color::TEAL());
+		DisplayText("P2 WINS", GAME_WIDTH / 2 - 60 - 1, GAME_HEIGHT / 2 + 50, Color::TEAL());
+		DisplayText("P2 WINS", GAME_WIDTH / 2 - 60, GAME_HEIGHT / 2 + 50, Color::TEAL());
 	}
-	DisplayText("PRESS 'r' to Restart", WIDTH / 2 - 120 - 1, HEIGHT / 2, winColor);
-	DisplayText("PRESS 'r' to Restart", WIDTH / 2 - 120, HEIGHT / 2, winColor);
+	DisplayText("PRESS 'r' to Restart", GAME_WIDTH / 2 - 120 - 1, GAME_HEIGHT / 2, winColor);
+	DisplayText("PRESS 'r' to Restart", GAME_WIDTH / 2 - 120, GAME_HEIGHT / 2, winColor);
 
 	//system("clear");				// for linux users
 	system("CLS");					//for window users

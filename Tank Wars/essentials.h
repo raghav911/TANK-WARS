@@ -1,10 +1,11 @@
 #pragma once
+//TANK WARS
 //#1. Tank Wars
 //This File Contains All the Essential Structs And enums Used in the game.
 #include<GL/glut.h>
 
-int WIDTH = 1355;									//width of game
-int HEIGHT=720;										//height of game
+int GAME_WIDTH = 1355;									//width of game
+int GAME_HEIGHT=720;									//height of game
 
 enum STATE
 {

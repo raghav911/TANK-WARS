@@ -1,3 +1,4 @@
+//TANK WARS
 #pragma once
 //#3.
 #include "object.h"
@@ -64,7 +65,7 @@ void Player::UpdatePos()
 	switch(state)
 	{
 	case FORWARD:
-		if(x_max<WIDTH)
+		if(x_max<GAME_WIDTH)
 		centre.x+=speed;
 		break;
 	case BACKWARD:
@@ -76,7 +77,7 @@ void Player::UpdatePos()
 			centre.y-=speed;
 		break;
 	case UPWARD:
-		if (y_max<HEIGHT)
+		if (y_max<GAME_HEIGHT)
 			centre.y+=speed;
 		break;
 	}
