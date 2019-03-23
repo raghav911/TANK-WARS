@@ -6,7 +6,8 @@
 #include <vector>
 #include<stdlib.h>
 #include<sstream>
-
+#define _USE_MATH_DEFINES
+#include<math.h>
 using namespace std;
 
 #include "essentials.h"

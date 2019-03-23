@@ -111,6 +111,10 @@ void Canvas::DrawObstacles()
 	unsigned int oSize= gameObstacles.size();
 	for (int i = 0; i < oSize; ++i)
 	{
+		//map design helpers
+		//gameObstacles[i]->UpdatePos();
+		//helpers ends
+
 		gameObstacles[i]->Draw();
 	}
 }

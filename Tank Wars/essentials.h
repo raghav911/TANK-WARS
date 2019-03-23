@@ -62,15 +62,16 @@ struct Color
 	//some Static Colors
 	static Color BLACK()      { Color temp(0, 0, 0)      ; return temp; }
 	static Color WHITE()      { Color temp(255, 255, 255); return temp; }
-	static Color RED()        {	Color temp(255, 0, 0)    ;return temp;}
-	static Color GREEN()      {	Color temp(0,255, 0)     ;return temp;}
-	static Color BLUE()       {	Color temp(0, 0, 255)    ;return temp;}
-	static Color CYAN()       {	Color temp(0, 255, 255)  ;return temp;}
-	static Color MAGENTA()    {	Color temp(255, 0, 255)  ;return temp;}
-	static Color YELLOW()     {	Color temp(255, 255, 0)  ;return temp;}
-	static Color SPRINGGREEN(){	Color temp(20, 255, 127) ;return temp;}
-	static Color TEAL()       {	Color temp(0,128,128)    ;return temp;}
-
+	static Color RED()        {	Color temp(255, 0, 0)    ;return temp;  }
+	static Color GREEN()      {	Color temp(0,255, 0)     ;return temp;  }
+	static Color BLUE()       {	Color temp(0, 0, 255)    ;return temp;  }
+	static Color CYAN()       {	Color temp(0, 255, 255)  ;return temp;  }
+	static Color MAGENTA()    {	Color temp(255, 0, 255)  ;return temp;  }
+	static Color YELLOW()     {	Color temp(255, 255, 0)  ;return temp;  }
+	static Color SPRINGGREEN(){	Color temp(20, 255, 127) ;return temp;  }
+	static Color TEAL()       {	Color temp(0,128,128)    ;return temp;  }
+	static Color OBSTACLE_DARK(){Color temp{33,33,33}    ;return temp;  }
+	static Color OBSTACLE_LIGHT(){Color temp{131,140,125}    ;return temp;  }
 };
 
 

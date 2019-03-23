@@ -17,8 +17,9 @@
 	#1.) Bullet reflection
 	#2.) Bullet Portal
 	#3.) last bullet stand
-	#4.) Score Display 
+	#4.) Score Display        //done
 	#5.) Player dash ability   //high priority
+	#6.) Shadow Effect in gameName
 
 	//SPECILA POWERS
 	#1.) absorbing life from another Palyer

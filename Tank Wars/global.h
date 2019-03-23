@@ -85,22 +85,76 @@ void Keyboard(unsigned char key, int, int)
 
 	switch (key)
 	{
+	case 27:
+		exit(0);
+		break;
 	case 'r':
-		if(!isGameRunning)
-		ResetGame();
+		if (!isGameRunning)
+			ResetGame();
 		break;
 	case 'p':
 		isGamepaused = !isGamepaused;
 		Canvas::Update();
 		break;
 	}
+//----------------------------------------------------------------------------------------
+	//	//mapdesign
+	//case 't':
+	//	gameObstacles[gameObstacles.size() - 1]->MoveUpward();
+	//	break;
+	//case 'g':
+	//	gameObstacles[gameObstacles.size() - 1]->MoveDownward();
+	//	break;
+	//case 'f':
+	//	gameObstacles[gameObstacles.size() - 1]->MoveBackward();
+	//	break;
+	//case 'h':
+	//	gameObstacles[gameObstacles.size() - 1]->MoveForward();
+	//	break;
+	//case 'j':
+	//	gameObstacles[gameObstacles.size() - 1]->ShowPoints();
+	//	break;
+	//case '0':
+	//	gameObstacles[gameObstacles.size() - 1]->IncreaseSpeed();
+	//	break;
+	//case '9':
+	//	gameObstacles[gameObstacles.size() - 1]->DecreaseSpeed();
+	//	break;
+	//case '8':
+	//	gameObstacles[gameObstacles.size() - 1]->NeutralSpeed();
+	//	break;
+	//default:
+	//	gameObstacles[gameObstacles.size() - 1]->StopMovement();
+	//	break;
+	//}
+	//helpers ends here
 }
 
 //---------------------~>[ Keyboard_Special ]<~---------------------
 void KeyboardSpec(int key, int, int)
 {
-	//std::cout << (int)key;
 	PlayerControls(key, KEYBOARDSPECIAL);
+	
+	//map design helpers
+	//switch(key)
+	//{
+	//case GLUT_KEY_UP:
+	//	gameObstacles[gameObstacles.size() - 1]->IncreaseHeight();
+	//	break;
+	//case GLUT_KEY_DOWN:
+	//	gameObstacles[gameObstacles.size() - 1]->DecreaseHeight();
+	//	break;
+	//case GLUT_KEY_RIGHT:
+	//	gameObstacles[gameObstacles.size() - 1]->IncreaseWidth();
+	//	break;
+	//case GLUT_KEY_LEFT:
+	//	gameObstacles[gameObstacles.size() - 1]->DecreaseWidth();
+	//	break;
+	//default:
+	//	gameObstacles[gameObstacles.size() - 1]->StopMovement();
+	//	break;
+	//}
+	//helpers ends
 }
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
@@ -114,8 +168,9 @@ void ResetGame()
 	if (P1) delete P1;
 	if (P2) delete P2;
 
-	//design the level
-	Level::Level1Obstacles(gameObstacles);
+	//Level::RandomLevel(gameObstacles);
+	Level::RandomLevel(gameObstacles);
+
 
 	P1Bullet.clear();
 	P2Bullet.clear();

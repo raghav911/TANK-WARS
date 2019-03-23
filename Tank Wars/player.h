@@ -91,6 +91,8 @@ void Player:: ReduceSize()
 		height -= 2;
 	}
 }
+
+
 //---------------------~>[ Sharma Draw ]<~---------------------
 void Player::Draw()
 {
@@ -122,109 +124,97 @@ void Player::Draw()
 }
 
 //---------------------~>[ Sangu Draw ]<~---------------------
-//code incompletes will be completed soon
-//these coordinates are the coordinates of the TANK facing Upwards
 /*
-
 void Player::Draw()
 {
-	glPushMatrix();
-	switch (drawState)
-	{
-	case FORWARD:
-		glTranslatef(-centre.x, -centre.y, 0);
-		glRotatef(90, centre.x, centre.y, 1);
-		glTranslatef(centre.x, centre.y, 0);
-		break;
-	}
+	double x, y, size;
 
-	DrawRectangle(centre.x, centre.y, size, size*0.5);
-	glPopMatrix();
+	x = centre.x;
+	y = centre.y;
+	size = height;
+
+	double angle = 0;
+	double r = M_PI / 180.0*(angle - 90);
+
 	
-	//this->color.SetGLColor();
-	int x = centre.x;
-	int y = centre.y;
 
 	glColor3f(0.0, 0.0, 0.0);
 	glBegin(GL_POLYGON);
-	glVertex2d(x + 7 * size / 5 - size / 5, y - size / 2);
-	glVertex2d(x + 7 * size / 5 + size / 5, y - size / 2);
-	glVertex2d(x + 7 * size / 5 + size / 5, y + 9 * size / 4);
-	glVertex2d(x + 7 * size / 5 - size / 5, y + 9 * size / 4);
+	glVertex2d((x + 7 * size / 5 - size / 5)*cos(r) - (y - size / 2)*sin(r), (x + 7 * size / 5 - size / 5)*sin(r) + (y - size / 2)*cos(r));
+	glVertex2d((x + 7 * size / 5 + size / 5)*cos(r) - (y - size / 2)*sin(r), (x + 7 * size / 5 + size / 5)*sin(r) + (y - size / 2)*cos(r));
+	glVertex2d((x + 7 * size / 5 + size / 5)*cos(r) - (y + 9 * size / 4)*sin(r), (x + 7 * size / 5 + size / 5)*sin(r) + (y + 9 * size / 4)*cos(r));
+	glVertex2d((x + 7 * size / 5 - size / 5)*cos(r) - (y + 9 * size / 4)*sin(r), (x + 7 * size / 5 - size / 5)*sin(r) + (y + 9 * size / 4)*cos(r));
 	glEnd();
 	glColor3f(0.0, 0.0, 0.0);
 	glBegin(GL_POLYGON);
-	glVertex2d(x - 7 * size / 5 - size / 5, y - size / 2);
-	glVertex2d(x - 7 * size / 5 + size / 5, y - size / 2);
-	glVertex2d(x - 7 * size / 5 + size / 5, y + 9 * size / 4);
-	glVertex2d(x - 7 * size / 5 - size / 5, y + 9 * size / 4);
+	glVertex2d((x - 7 * size / 5 - size / 5)*cos(r) - (y - size / 2)*sin(r), (x - 7 * size / 5 - size / 5)*sin(r) + (y - size / 2)*cos(r));
+	glVertex2d((x - 7 * size / 5 + size / 5)*cos(r) - (y - size / 2)*sin(r), (x - 7 * size / 5 + size / 5)*sin(r) + (y - size / 2)*cos(r));
+	glVertex2d((x - 7 * size / 5 + size / 5)*cos(r) - (y + 9 * size / 4)*sin(r), (x - 7 * size / 5 + size / 5)*sin(r) + (y + 9 * size / 4)*cos(r));
+	glVertex2d((x - 7 * size / 5 - size / 5)*cos(r) - (y + 9 * size / 4)*sin(r), (x - 7 * size / 5 - size / 5)*sin(r) + (y + 9 * size / 4)*cos(r));
 	glEnd();
 	glColor3f(0.0, 0.0, 0.0);
 	glBegin(GL_POLYGON);
-	glVertex2d(x - size / 2, y - 5 * size / 4);
-	glVertex2d(x + size / 2, y - 5 * size / 4);
-	glVertex2d(x + 7 * size / 5, y - size / 2);
-	glVertex2d(x + 7 * size / 5, y + 3 * size - 3 * size / 4);
-	glVertex2d(x + size / 2, y + 3 * size);
-	glVertex2d(x - size / 2, y + 3 * size);
-	glVertex2d(x - 7 * size / 5, y + 3 * size - 3 * size / 4);
-	glVertex2d(x - 7 * size / 5, y - size / 2);
+	glVertex2d((x - size / 2)*cos(r) - (y - 5 * size / 4)*sin(r), (x - size / 2)*sin(r) + (y - 5 * size / 4)*cos(r));
+	glVertex2d((x + size / 2)*cos(r) - (y - 5 * size / 4)*sin(r), (x + size / 2)*sin(r) + (y - 5 * size / 4)*cos(r));
+	glVertex2d((x + 7 * size / 5)*cos(r) - (y - size / 2)*sin(r), (x + 7 * size / 5)*sin(r) + (y - size / 2)*cos(r));
+	glVertex2d((x + 7 * size / 5)*cos(r) - (y + 3 * size - 3 * size / 4)*sin(r), (x + 7 * size / 5)*sin(r) + (y + 3 * size - 3 * size / 4)*cos(r));
+	glVertex2d((x + size / 2)*cos(r) - (y + 3 * size)*sin(r), (x + size / 2)*sin(r) + (y + 3 * size)*cos(r));
+	glVertex2d((x - size / 2)*cos(r) - (y + 3 * size)*sin(r), (x - size / 2)*sin(r) + (y + 3 * size)*cos(r));
+	glVertex2d((x - 7 * size / 5)*cos(r) - (y + 3 * size - 3 * size / 4)*sin(r), (x - 7 * size / 5)*sin(r) + (y + 3 * size - 3 * size / 4)*cos(r));
+	glVertex2d((x - 7 * size / 5)*cos(r) - (y - size / 2)*sin(r), (x - 7 * size / 5)*sin(r) + (y - size / 2)*cos(r));
 	glEnd();
 
-	this->color.SetGLColor();
-	//glColor3f(1.0, 0.0, 0.0);
+	glColor3f(1.0, 0.0, 0.0);
 	glBegin(GL_POLYGON);
-	glVertex2d(x - size / 2 + size / 7, y - 5 * size / 4 + size / 7);
-	glVertex2d(x + size / 2 - size / 7, y - 5 * size / 4 + size / 7);
-	glVertex2d(x + 7 * size / 5 - size / 7, y - size / 2);
-	glVertex2d(x + 7 * size / 5 - size / 7, y + 3 * size - 3 * size / 4 - size / 7);
-	glVertex2d(x + size / 2 - size / 7, y + 3 * size - size / 7);
-	glVertex2d(x - size / 2 + size / 7, y + 3 * size - size / 7);
-	glVertex2d(x - 7 * size / 5 + size / 7, y + 3 * size - 3 * size / 4 - size / 7);
-	glVertex2d(x - 7 * size / 5 + size / 7, y - size / 2 + size / 7);
+	glVertex2d((x - size / 2 + size / 7)*cos(r) - (y - 5 * size / 4 + size / 7)*sin(r), (x - size / 2 + size / 7)*sin(r) + (y - 5 * size / 4 + size / 7)*cos(r));
+	glVertex2d((x + size / 2 - size / 7)*cos(r) - (y - 5 * size / 4 + size / 7)*sin(r), (x + size / 2 - size / 7)*sin(r) + (y - 5 * size / 4 + size / 7)*cos(r));
+	glVertex2d((x + 7 * size / 5 - size / 7)*cos(r) - (y - size / 2)*sin(r), (x + 7 * size / 5 - size / 7)*sin(r) + (y - size / 2)*cos(r));
+	glVertex2d((x + 7 * size / 5 - size / 7)*cos(r) - (y + 3 * size - 3 * size / 4 - size / 7)*sin(r), (x + 7 * size / 5 - size / 7)*sin(r) + (y + 3 * size - 3 * size / 4 - size / 7)*cos(r));
+	glVertex2d((x + size / 2 - size / 7)*cos(r) - (y + 3 * size - size / 7)*sin(r), (x + size / 2 - size / 7)*sin(r) + (y + 3 * size - size / 7)*cos(r));
+	glVertex2d((x - size / 2 + size / 7)*cos(r) - (y + 3 * size - size / 7)*sin(r), (x - size / 2 + size / 7)*sin(r) + (y + 3 * size - size / 7)*cos(r));
+	glVertex2d((x - 7 * size / 5 + size / 7)*cos(r) - (y + 3 * size - 3 * size / 4 - size / 7)*sin(r), (x - 7 * size / 5 + size / 7)*sin(r) + (y + 3 * size - 3 * size / 4 - size / 7)*cos(r));
+	glVertex2d((x - 7 * size / 5 + size / 7)*cos(r) - (y - size / 2 + size / 7)*sin(r), (x - 7 * size / 5 + size / 7)*sin(r) + (y - size / 2 + size / 7)*cos(r));
 	glEnd();
 
 	glColor3f(0.0, 0.0, 0.0);
 	glBegin(GL_POLYGON);
-	glVertex2d(x - size / 2 - size / 10, y - size + size / 2 - size / 10);
-	glVertex2d(x + size / 2 + size / 10, y - size + size / 2 - size / 10);
-	glVertex2d(x + size + size / 10, y - size / 2 + size / 2 - size / 10);
-	glVertex2d(x + size + size / 10, y + size / 2 + size / 2 + size / 10);
-	glVertex2d(x + size / 2 + size / 10, y + size + size / 2 + size / 10);
-	glVertex2d(x - size / 2 - size / 10, y + size + size / 2 + size / 10);
-	glVertex2d(x - size - size / 10, y + size / 2 + size / 2 + size / 10);
-	glVertex2d(x - size - size / 10, y - size / 2 + size / 2 - size / 10);
+	glVertex2d((x - size / 2 - size / 10)*cos(r) - (y - size + size / 2 - size / 10)*sin(r), (x - size / 2 - size / 10)*sin(r) + (y - size + size / 2 - size / 10)*cos(r));
+	glVertex2d((x + size / 2 + size / 10)*cos(r) - (y - size + size / 2 - size / 10)*sin(r), (x + size / 2 + size / 10)*sin(r) + (y - size + size / 2 - size / 10)*cos(r));
+	glVertex2d((x + size + size / 10)*cos(r) - (y - size / 2 + size / 2 - size / 10)*sin(r), (x + size + size / 10)*sin(r) + (y - size / 2 + size / 2 - size / 10)*cos(r));
+	glVertex2d((x + size + size / 10)*cos(r) - (y + size / 2 + size / 2 + size / 10)*sin(r), (x + size + size / 10)*sin(r) + (y + size / 2 + size / 2 + size / 10)*cos(r));
+	glVertex2d((x + size / 2 + size / 10)*cos(r) - (y + size + size / 2 + size / 10)*sin(r), (x + size / 2 + size / 10)*sin(r) + (y + size + size / 2 + size / 10)*cos(r));
+	glVertex2d((x - size / 2 - size / 10)*cos(r) - (y + size + size / 2 + size / 10)*sin(r), (x - size / 2 - size / 10)*sin(r) + (y + size + size / 2 + size / 10)*cos(r));
+	glVertex2d((x - size - size / 10)*cos(r) - (y + size / 2 + size / 2 + size / 10)*sin(r), (x - size - size / 10)*sin(r) + (y + size / 2 + size / 2 + size / 10)*cos(r));
+	glVertex2d((x - size - size / 10)*cos(r) - (y - size / 2 + size / 2 - size / 10)*sin(r), (x - size - size / 10)*sin(r) + (y - size / 2 + size / 2 - size / 10)*cos(r));
 	glEnd();
 
-	this->color.SetGLColor();
-	//glColor3f(0.0, 0.0, 1.0);
+	glColor3f(0.0, 0.0, 1.0);
 	glBegin(GL_POLYGON);
-	glVertex2d(x - size / 2, y - size + size / 2);
-	glVertex2d(x + size / 2, y - size + size / 2);
-	glVertex2d(x + size, y - size / 2 + size / 2);
-	glVertex2d(x + size, y + size / 2 + size / 2);
-	glVertex2d(x + size / 2, y + size + size / 2);
-	glVertex2d(x - size / 2, y + size + size / 2);
-	glVertex2d(x - size, y + size / 2 + size / 2);
-	glVertex2d(x - size, y - size / 2 + size / 2);
+	glVertex2d((x - size / 2)*cos(r) - (y - size + size / 2)*sin(r), (x - size / 2)*sin(r) + (y - size + size / 2)*cos(r));
+	glVertex2d((x + size / 2)*cos(r) - (y - size + size / 2)*sin(r), (x + size / 2)*sin(r) + (y - size + size / 2)*cos(r));
+	glVertex2d((x + size)*cos(r) - (y - size / 2 + size / 2)*sin(r), (x + size)*sin(r) + (y - size / 2 + size / 2)*cos(r));
+	glVertex2d((x + size)*cos(r) - (y + size / 2 + size / 2)*sin(r), (x + size)*sin(r) + (y + size / 2 + size / 2)*cos(r));
+	glVertex2d((x + size / 2)*cos(r) - (y + size + size / 2)*sin(r), (x + size / 2)*sin(r) + (y + size + size / 2)*cos(r));
+	glVertex2d((x - size / 2)*cos(r) - (y + size + size / 2)*sin(r), (x - size / 2)*sin(r) + (y + size + size / 2)*cos(r));
+	glVertex2d((x - size)*cos(r) - (y + size / 2 + size / 2)*sin(r), (x - size)*sin(r) + (y + size / 2 + size / 2)*cos(r));
+	glVertex2d((x - size)*cos(r) - (y - size / 2 + size / 2)*sin(r), (x - size)*sin(r) + (y - size / 2 + size / 2)*cos(r));
 	glEnd();
 
 	glColor3f(0.0, 0.0, 0.0);
 	glBegin(GL_POLYGON);
-	glVertex2d(x - size / 2, y + size + size / 2);
-	glVertex2d(x - size / 2, y + size + size / 5 + size / 2);
-	glVertex2d(x + size / 2, y + size + size / 5 + size / 2);
-	glVertex2d(x + size / 2, y + size + size / 2);
+	glVertex2d((x - size / 2)*cos(r) - (y + size + size / 2)*sin(r), (x - size / 2)*sin(r) - (y + size + size / 2)*cos(r));
+	glVertex2d((x - size / 2)*cos(r) - (y + size + size / 5 + size / 2)*sin(r), (x - size / 2)*sin(r) - (y + size + size / 5 + size / 2)*cos(r));
+	glVertex2d((x + size / 2)*cos(r) - (y + size + size / 5 + size / 2)*sin(r), (x + size / 2)*sin(r) - (y + size + size / 5 + size / 2)*cos(r));
+	glVertex2d((x + size / 2)*cos(r) - (y + size + size / 2)*sin(r), (x + size / 2)*sin(r) - (y + size + size / 2)*cos(r));
 	glEnd();
 
 	glColor3f(0.0, 0.0, 0.0);
 	glBegin(GL_POLYGON);
-	glVertex2d(x - size / 8, y + 6 * size / 5 + size / 2);
-	glVertex2d(x - size / 8, y + 6 * size / 4 + 2 * size + size / 2);
-	glVertex2d(x + size / 8, y + 6 * size / 4 + 2 * size + size / 2);
-	glVertex2d(x + size / 8, y + 6 * size / 5 + size / 2);
+	glVertex2d((x - size / 8)*cos(r) - (y + 6 * size / 5 + size / 2)*sin(r), (x - size / 8)*sin(r) + (y + 6 * size / 5 + size / 2)*cos(r));
+	glVertex2d((x - size / 8)*cos(r) - (y + 6 * size / 4 + 2 * size + size / 2)*sin(r), (x - size / 8)*sin(r) + (y + 6 * size / 4 + 2 * size + size / 2)*cos(r));
+	glVertex2d((x + size / 8)*cos(r) - (y + 6 * size / 4 + 2 * size + size / 2)*sin(r), (x + size / 8)*sin(r) + (y + 6 * size / 4 + 2 * size + size / 2)*cos(r));
+	glVertex2d((x + size / 8)*cos(r) - (y + 6 * size / 5 + size / 2)*sin(r), (x + size / 8)*sin(r) + (y + 6 * size / 5 + size / 2)*cos(r));
 	glEnd();
 
-	glPopMatrix();
-}
-*/
+
+}*/
