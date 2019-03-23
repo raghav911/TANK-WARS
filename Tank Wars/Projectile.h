@@ -10,7 +10,7 @@ class Projectile:public GameObject
 	
 	void init()
 	{
-		speed = 2.5;
+		speed = 3;
 		height = 30;
 		width = 5;
 		headRatio = 3.5;

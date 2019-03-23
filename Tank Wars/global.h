@@ -14,7 +14,7 @@ void Reshape(int,int);
 void Display();
 void Keyboard(unsigned char,int,int);
 void KeyboardSpec(int, int, int);
-
+void MouseFunc(int,int,int,int);
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //					:~>  INITIALIZERS <~:
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -54,6 +54,7 @@ void InitCallbackFunc()
 {
 	glutDisplayFunc(Display);
 	glutKeyboardFunc(Keyboard);
+	glutMouseFunc(MouseFunc);
 	glutSpecialFunc(KeyboardSpec);
 	glutReshapeFunc(Reshape);
 }
@@ -77,6 +78,19 @@ void Reshape(int x,int y)
 //---------------------~>[ Dispaly ]<~---------------------
 void Display(){}
 
+//---------------------~>[ MOUSE ]<~---------------------
+void MouseFunc(int button, int state, int x, int y)
+{
+	y = -y + GAME_HEIGHT;
+	if(state==GLUT_DOWN)
+	PlayerControls((int)button, MOUSE);
+
+	if (isGamepaused)
+	{
+		xMouseClick = x;
+		yMouseClick = y;
+	}
+}
 //---------------------~>[ Keyboard ]<~---------------------
 void Keyboard(unsigned char key, int, int)
 {
@@ -93,8 +107,8 @@ void Keyboard(unsigned char key, int, int)
 			ResetGame();
 		break;
 	case 'p':
-		isGamepaused = !isGamepaused;
-		Canvas::Update();
+		isGamepaused = true;
+		//Canvas::Update();
 		break;
 	}
 //----------------------------------------------------------------------------------------
@@ -198,6 +212,26 @@ void ResetGame()
 }
 
 //---------------------~>[ PLAYER CONTROLS ]<~---------------------
+void P1Shoots()					//P1 Shooting Controls
+{
+	if (P1->GetDrawState() != NEUTRAL && P1Bullet.size() < projectileCount)
+	{
+		P1Bullet.push_back(new Projectile(P1->GetCentre()));//P1 bullet based on the curr location of P1
+		P1Bullet[P1Bullet.size() - 1]->SetState(P1->GetDrawState());
+		P1Bullet[P1Bullet.size() - 1]->SetColor(P1->GetPlayerColor());
+	}
+}
+void P2Shoots()					//P2 Shooting Controls
+{
+	if (P2Alive && P2->GetDrawState() != NEUTRAL && P2Bullet.size() < projectileCount)
+	{
+		P2Bullet.push_back(new Projectile(P2->GetCentre()));//P1 bullet based on the curr location of P1
+		P2Bullet[P2Bullet.size() - 1]->SetState(P2->GetDrawState());
+		P2Bullet[P2Bullet.size() - 1]->SetColor(P2->GetPlayerColor());
+	}
+}
+
+
 void PlayerControls(int key,int controllerType)
 {
 	switch (controllerType)//who is calling this 
@@ -218,23 +252,15 @@ void PlayerControls(int key,int controllerType)
 		case 'a':
 			P1->MoveBackward();
 			break;
-
+		case 'f':
+			P1->Dash();
+			break;
 		case 32://P1 Shoots(space)
- 			if (P1->GetDrawState()!=NEUTRAL && P1Bullet.size() < projectileCount)
-			{
-				P1Bullet.push_back(new Projectile(P1->GetCentre()));//P1 bullet based on the curr location of P1
-				P1Bullet[P1Bullet.size() - 1]->SetState(P1->GetDrawState());
-				P1Bullet[P1Bullet.size() - 1]->SetColor(P1->GetPlayerColor());
-			}
+			P1Shoots();
 			break;
 			//P1 controls ends here
 		case 13://P2 Shoots
-			if (P2Alive && P2->GetDrawState() != NEUTRAL && P2Bullet.size() < projectileCount)
-			{
-					P2Bullet.push_back(new Projectile(P2->GetCentre()));//P1 bullet based on the curr location of P1
-					P2Bullet[P2Bullet.size() - 1]->SetState(P2->GetDrawState());
-					P2Bullet[P2Bullet.size() - 1]->SetColor(P2->GetPlayerColor());
-			}
+			P2Shoots();
 		}
 		//keyboard ends here
 		break;
@@ -259,6 +285,16 @@ void PlayerControls(int key,int controllerType)
 		//Keyboard_Special ends here
 		break;
 	//-----------------:~> 3rd CASE <~:-----------------
-
+	case MOUSE:
+		if(P2Alive)
+		switch (key)
+		{
+		case GLUT_LEFT_BUTTON:
+			P2Shoots();
+			break;
+		}
+	
+		//MOUSE ends here
+		break;
 	}//switch controller type ends here
 }

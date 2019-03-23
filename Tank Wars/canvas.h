@@ -14,9 +14,12 @@ private:
 	static void GameOver();
 	static void UpdateScore();
 	static void ShowGameName();
+	//menu func
+	static void MenuStartButton();
 public:
 	static void DisplayText(string test,int,int,const Color&,int);
 	static void Update(int);
+	static void GameMenu(int);
 };
 bool Canvas::flag = false;
 
@@ -47,7 +50,11 @@ void Canvas::DisplayText(string text, int x, int y,const Color& c=Color::RED(),i
 //---------------------~>[ UPDATE ]<~---------------------
 void  Canvas::Update(int time=100)
 {
-	if (isGamepaused) return;
+	if (isGamepaused)
+	{
+		GameMenu(0);
+		return;
+	}
 	if (!isGameRunning && flag)
 	{
 		GameOver();
@@ -76,6 +83,27 @@ void  Canvas::Update(int time=100)
 	glutTimerFunc(GameSpeed,Update,0);					   //controls FramePerSec of the game
 }
 
+//---------------------~>[ MENU ]<~---------------------
+void Canvas::GameMenu(int time=0)
+{
+	if (!isGamepaused)
+	{
+		Update(0);
+		return;
+	}
+
+	Canvas::Clear();
+	
+	MenuStartButton();
+	
+	
+	glutSwapBuffers();
+	glutTimerFunc(5, GameMenu, 0);
+}
+
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
+//					:~>  UPDATE <~:
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<//
 //---------------------~>[ Drawplayers ]<~---------------------
 void Canvas:: DrawPlayers()
 {
@@ -154,7 +182,7 @@ void Canvas::GameOver()
 	cout << "P2 WINS:" << P2WinCount << endl;
 }
 
-//---------------------~>[ GameOver ]<~---------------------
+//---------------------~>[ UpdateScore ]<~---------------------
 void Canvas::UpdateScore()
 {
 	DisplayText("P1 SCORE", 15, GAME_HEIGHT-25,P1color);
@@ -168,4 +196,34 @@ void Canvas:: ShowGameName()
 {
 	DisplayText("BATTLE TANKS",GAME_WIDTH/2-100,GAME_HEIGHT-GAME_MENU_AREA/2,Color::SPRINGGREEN());
 	DisplayText("BATTLE TANKS",GAME_WIDTH/2-100,GAME_HEIGHT-GAME_MENU_AREA/2-1,Color::SPRINGGREEN());
+}
+
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
+//					:~>  MENU <~:
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<//
+
+//---------------------~>[ UpdateScore ]<~---------------------
+void Canvas:: MenuStartButton()
+{
+	//Game Name
+	DisplayText("BATTLE TANKS", GAME_WIDTH / 2 - 100, GAME_HEIGHT/2+80, Color::SPRINGGREEN());
+	DisplayText("BATTLE TANKS", GAME_WIDTH / 2 - 100, GAME_HEIGHT/2+80 - 1, Color::SPRINGGREEN());
+	DisplayText("BATTLE TANKS", GAME_WIDTH / 2 - 100-1, GAME_HEIGHT/2+80 + 1, Color::MAGENTA());
+
+	//Start Button
+	double x_min = GAME_WIDTH / 2.0-75;
+	double y_min = GAME_HEIGHT / 2.0+-10;
+	double x_max = GAME_WIDTH / 2.0+45;
+	double y_max = GAME_HEIGHT / 2.0+30;
+	
+	Color::OBSTACLE_LIGHT().SetGLColor();
+	DrawRectangleCorner(x_min, y_min, x_max, y_max);
+	DisplayText("BATTLE", GAME_WIDTH / 2 - 60, GAME_HEIGHT / 2 , Color::SPRINGGREEN());
+
+	//check start clicked
+	if (xMouseClick<x_max && xMouseClick>x_min && yMouseClick<y_max && yMouseClick>y_min)
+	{
+		isGamepaused = false;
+		xMouseClick = yMouseClick = 0;
+	}
 }

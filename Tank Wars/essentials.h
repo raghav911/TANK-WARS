@@ -10,7 +10,7 @@ int GAME_MENU_AREA = 55;							    //top area of the game
 
 enum STATE
 {
-	FORWARD=1,BACKWARD,UPWARD,DOWNWARD, NEUTRAL,DEAD
+	FORWARD=1,BACKWARD,UPWARD,DOWNWARD, NEUTRAL,DASH
 };
 
 enum ControlState

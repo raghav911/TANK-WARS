@@ -8,7 +8,7 @@ class Player:public GameObject
 	void Init(int dState = UPWARD)
 	{
 		height = 40;
-		speed = 1.5;
+		speed = 1.7;
 		drawState = dState;
 		state = NEUTRAL;
 	}
@@ -30,6 +30,7 @@ public:
 	void MoveBackward() { drawState = state = BACKWARD; }
 	void MoveUpward()   { drawState = state = UPWARD; }
 	void MoveDownward() { drawState = state = DOWNWARD; }
+	void Dash()			{  }
 	void StopMovement() { state = NEUTRAL; }
 
 	void ReduceSize();
@@ -55,6 +56,7 @@ Vector2 Player:: GetTopRight()   //returns bottomleft point of player area
 //---------------------~>[ UPDATE POSITION ]<~---------------------
 void Player::UpdatePos()
 {
+	bool dashed = false;
 	double x_min, y_min, x_max, y_max;
 
 	x_min = centre.x - height / 2;

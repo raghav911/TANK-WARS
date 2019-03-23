@@ -12,6 +12,7 @@
 	#3.) bullet Crossing      //done
 	#4.) reshape not working  //done
 
+
 	//SPECIAL FEATURES
 	#1.) OBSTACLE			  //done
 	#1.) Bullet reflection
@@ -20,6 +21,9 @@
 	#4.) Score Display        //done
 	#5.) Player dash ability   //high priority
 	#6.) Shadow Effect in gameName
+	#7.) Levels               //done
+	#8.) MENU
+
 
 	//SPECILA POWERS
 	#1.) absorbing life from another Palyer

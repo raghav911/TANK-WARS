@@ -1,6 +1,6 @@
 #pragma once
 #include "GameManager.h"
-#include "Player.h"
+#include "player.h"
 #include "Obstacle.h"
 #include "Projectile.h"
 #include "GameArea.h"
