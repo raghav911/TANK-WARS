@@ -9,6 +9,7 @@ class Canvas
 	static bool flag;
 private:
 	static void DrawPlayers();
+	static void DrawObstacles();
 	static void Clear();
 	static void GameOver();
 public:
@@ -39,6 +40,7 @@ void Canvas::DisplayText(const char* text, int x, int y,const Color& c=Color::RE
 //---------------------~>[ UPDATE ]<~---------------------
 void  Canvas::Update(int time=100)
 {
+	if (isGamepaused) return;
 	if (!isGameRunning && flag)
 	{
 		GameOver();
@@ -52,10 +54,12 @@ void  Canvas::Update(int time=100)
 	Canvas::Clear();
 
 	
+	GameManager::CheckGameObjectObstacleCollision();
 	GameManager::CheckPlayerPlayerCollision();
 	GameManager::CheckBulletBulletCollision();
 	GameManager::CheckBulletPlayerCollision();
 
+	DrawObstacles();
 	DrawPlayers();									//order matters this call should be below Physics2D
 	
 	glutSwapBuffers();
@@ -87,6 +91,17 @@ void Canvas:: DrawPlayers()
 			P2Bullet[i]->UpdatePos();
 			P2Bullet[i]->Draw();
 		}
+	}
+}
+
+//---------------------~>[ DrawObstacles ]<~---------------------
+void Canvas::DrawObstacles()
+{
+	//cache size;
+	unsigned int oSize= gameObstacles.size();
+	for (int i = 0; i < oSize; ++i)
+	{
+		gameObstacles[i]->Draw();
 	}
 }
 

@@ -9,14 +9,14 @@ class GameManager
 {
 	//ansilary
 	static bool Obj1ColWithObj2(GameObject *Obj1,GameObject *Obj2);
-	static bool BulletsColWithPlayer(vector<Projectile*> &Bullets,Player*);
+	static bool BulletsColWithPlayer(vector<Projectile*> &Bullets,GameObject *Obj);
 
 public:
 	//Physics2D
 	static void CheckBulletPlayerCollision();
 	static void CheckPlayerPlayerCollision();
 	static void CheckBulletBulletCollision();
-
+	static void CheckGameObjectObstacleCollision();
 };
 
   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
@@ -58,7 +58,7 @@ bool GameManager:: Obj1ColWithObj2(GameObject *obj1,GameObject *obj2)
 }
 
 //---------------------~>[ Bullets Col With P ]<~---------------------
-bool GameManager:: BulletsColWithPlayer(vector<Projectile*> &Bullets, Player *p)
+bool GameManager:: BulletsColWithPlayer(vector<Projectile*> &Bullets, GameObject *p)
 {
 	unsigned int bulletCount = Bullets.size();
 
@@ -146,6 +146,35 @@ void GameManager:: CheckBulletBulletCollision()
 				i--;
 				break;
 			}
+		}
+	}
+}
+
+//---------------------~>[ Obstacle Player Collision ]<~---------------------
+//this function checks whether any gameobject have collided with Obstacles
+void GameManager::CheckGameObjectObstacleCollision()
+{
+	//cache
+	unsigned int obsCount = gameObstacles.size();
+	//check bullets
+	for (int i = 0; i < obsCount; ++i)
+	{
+		bool hit;
+		BulletsColWithPlayer(P1Bullet,gameObstacles[i]);
+		BulletsColWithPlayer(P2Bullet,gameObstacles[i]);
+
+		if (P1)
+		{
+			hit = Obj1ColWithObj2(P1, gameObstacles[i]);
+			if (hit)
+				P1->StopMovement();
+		}
+
+		if (P2)
+		{
+			hit = Obj1ColWithObj2(P2, gameObstacles[i]);
+			if (hit)
+				P2->StopMovement();
 		}
 	}
 }

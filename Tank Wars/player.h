@@ -7,7 +7,7 @@ class Player:public GameObject
 {
 	void Init(int dState = UPWARD)
 	{
-		size = 40;
+		height = 40;
 		speed = 1.5;
 		drawState = dState;
 		state = NEUTRAL;
@@ -44,12 +44,12 @@ public:
 //---------------------~>[ Get Player Extremes POSITION ]<~---------------------
 Vector2 Player:: GetBottomLeft()   //returns bottomleft point of player area
 {
-	Vector2 temp(centre.x-size/2.0,centre.y-size/2.0);
+	Vector2 temp(centre.x-height/2.0,centre.y-height/2.0);
 	return temp;
 }
 Vector2 Player:: GetTopRight()   //returns bottomleft point of player area
 {
-	Vector2 temp(centre.x+size/2.0,centre.y+size/2.0);
+	Vector2 temp(centre.x+height/2.0,centre.y+height/2.0);
 	return temp;
 }
 //---------------------~>[ UPDATE POSITION ]<~---------------------
@@ -57,10 +57,10 @@ void Player::UpdatePos()
 {
 	double x_min, y_min, x_max, y_max;
 
-	x_min = centre.x - size / 2;
-	y_min = centre.y - size / 2;
-	x_max = centre.x + size / 2;
-	y_max = centre.y + size / 2;
+	x_min = centre.x - height / 2;
+	y_min = centre.y - height / 2;
+	x_max = centre.x + height / 2;
+	y_max = centre.y + height / 2;
 
 	switch(state)
 	{
@@ -86,9 +86,9 @@ void Player::UpdatePos()
 //---------------------~>[ Reduce_size ]<~---------------------
 void Player:: ReduceSize()
 {
-	if (size > 5)
+	if (height > 5)
 	{
-		size -= 2;
+		height -= 2;
 	}
 }
 //---------------------~>[ Sharma Draw ]<~---------------------
@@ -99,24 +99,24 @@ void Player::Draw()
 	switch(drawState)
 	{
 	case FORWARD:
-		DrawRectangle(centre.x, centre.y, size, size);//Draw Basic Rectangle
+		DrawRectangle(centre.x, centre.y, height, height);//Draw Basic Rectangle
 		glColor3f(0, 0, 0);//drawing Black Nozzle
-		DrawRectangle(centre.x + size / 2, centre.y, 0.8*size, 0.1*size);//nozzle
+		DrawRectangle(centre.x + height / 2, centre.y, 0.8*height, 0.1*height);//nozzle
 		break;
 	case BACKWARD:
-		DrawRectangle(centre.x, centre.y, size, size);//Draw Basic Rectangle
+		DrawRectangle(centre.x, centre.y, height, height);//Draw Basic Rectangle
 		glColor3f(0, 0, 0);//drawing Black Nozzle
-		DrawRectangle(centre.x - size / 2, centre.y, 0.8*size, 0.1*size);//nozzle
+		DrawRectangle(centre.x - height / 2, centre.y, 0.8*height, 0.1*height);//nozzle
 		break;
 	case UPWARD:
-		DrawRectangle(centre.x, centre.y, size, size);//Draw Basic Rectangle
+		DrawRectangle(centre.x, centre.y, height, height);//Draw Basic Rectangle
 		glColor3f(0, 0, 0);//drawing Black Nozzle
-		DrawRectangle(centre.x, centre.y + size / 2, 0.1*size, 0.8*size);//nozzle
+		DrawRectangle(centre.x, centre.y + height / 2, 0.1*height, 0.8*height);//nozzle
 		break;
 	case DOWNWARD:
-		DrawRectangle(centre.x, centre.y, size, size);//Draw Basic Rectangle
+		DrawRectangle(centre.x, centre.y, height, height);//Draw Basic Rectangle
 		glColor3f(0, 0, 0);//drawing Black Nozzle
-		DrawRectangle(centre.x, centre.y - size / 2, 0.1*size, 0.8*size);//nozzle
+		DrawRectangle(centre.x, centre.y - height / 2, 0.1*height, 0.8*height);//nozzle
 		break;
 	}
 }

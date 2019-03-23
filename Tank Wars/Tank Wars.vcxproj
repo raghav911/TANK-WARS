@@ -156,7 +156,9 @@
     <ClInclude Include="GameArea.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="global.h" />
+    <ClInclude Include="LevelInformation.h" />
     <ClInclude Include="object.h" />
+    <ClInclude Include="Obstacle.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="Projectile.h" />

@@ -13,8 +13,9 @@ bool P2Alive = true;
 
 vector<Projectile*> P1Bullet;
 vector<Projectile*> P2Bullet;
-
+vector<Obstacle*>   gameObstacles;
 //Game State variables
+bool isGamepaused=false;
 
 int GameSpeed = 5;									//higher the value slower the game
 int projectileCount = 4;							//how much bullet Players can Shoot

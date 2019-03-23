@@ -89,6 +89,10 @@ void Keyboard(unsigned char key, int, int)
 		if(!isGameRunning)
 		ResetGame();
 		break;
+	case 'p':
+		isGamepaused = !isGamepaused;
+		Canvas::Update();
+		break;
 	}
 }
 
@@ -109,6 +113,9 @@ void ResetGame()
 {
 	if (P1) delete P1;
 	if (P2) delete P2;
+
+	//design the level
+	Level::Level1Obstacles(gameObstacles);
 
 	P1Bullet.clear();
 	P2Bullet.clear();

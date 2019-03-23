@@ -53,6 +53,8 @@ struct Color
 	}
 
 	//some Static Colors
+	static Color BLACK()      { Color temp(0, 0, 0)      ; return temp; }
+	static Color WHITE()      { Color temp(255, 255, 255); return temp; }
 	static Color RED()        {	Color temp(255, 0, 0)    ;return temp;}
 	static Color GREEN()      {	Color temp(0,255, 0)     ;return temp;}
 	static Color BLUE()       {	Color temp(0, 0, 255)    ;return temp;}
