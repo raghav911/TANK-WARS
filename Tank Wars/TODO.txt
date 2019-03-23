@@ -7,9 +7,9 @@
 	y_max = y+3*size
 
 	//BUG
-	#1.) Player Overlap
+	#1.) Player Overlap       //done
 	#2.) pretest bullet fire  //done
-	#3.) bullet Crossing
+	#3.) bullet Crossing      //done
 	#4.) reshape not working
 
 	//SPECIAL FEATURES
@@ -20,6 +20,7 @@
 	#5.) Player dash ability
 
 	//SPECILA POWERS
-	#3.) absorbing life from another Palyer
-	#4.) one shot kill
-	#5.) Character Selection
+	#1.) absorbing life from another Palyer
+	#2.) one shot kill
+	#3.) Character Selection
+	#4.) MultiThreaded Controls(Last Priority)

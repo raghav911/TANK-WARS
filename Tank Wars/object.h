@@ -21,6 +21,7 @@ public:
 	//void Dstroy() { state = DEAD; }
 
 	//getters
+	int GetDrawState()      { return drawState; }
 	int GetState()          { return state; }
 	Vector2 GetCentre()     { return centre; }
 	Color GetPlayerColor()  { return color; }
