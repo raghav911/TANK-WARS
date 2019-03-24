@@ -36,7 +36,7 @@ void Canvas::DisplayText(string text, int x, int y,const Color& c=Color::RED(),i
 	//selecting the font
 	void *p=NULL;
 	if(font<8 && font>0)	p = ((void *)font);
-	else				    font = 5;
+	else				    p = ((void *)5);
 
 	Color textColor = c;
 	textColor.SetGLColor();
@@ -67,7 +67,7 @@ void  Canvas::Update(int time=100)
 	
 	Canvas::Clear();
 
-	
+	//Physics
 	GameManager::CheckGameObjectObstacleCollision();
 	GameManager::CheckPlayerPlayerCollision();
 	GameManager::CheckBulletBulletCollision();
