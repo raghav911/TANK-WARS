@@ -25,7 +25,7 @@ bool isGamepaused=true;
 
 int GameSpeed = 5;									//higher the value slower the game
 int projectileCount = 4;							//how much bullet Players can Shoot
-int maxHit = 4;
+int maxHit = 3;
 int P1HitTaken=0;
 int P2HitTaken=0;
 int P1WinCount = 0;

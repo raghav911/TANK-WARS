@@ -1,5 +1,6 @@
 //TANK WARS
 #pragma once
+
 //#7.
 //This File is Responsible For Drawing on The Screen.
 #include "GameManager.h"
@@ -58,7 +59,7 @@ void  Canvas::Update(int time=100)
 	if (!isGameRunning && flag)
 	{
 		GameOver();
-		glFlush();
+		glutSwapBuffers();
 		return; 
 	}
 
@@ -109,24 +110,28 @@ void Canvas:: DrawPlayers()
 {
 	if (P1)//Player 1 is Alive
 	{
-		P1->UpdatePos();
+		if (!isGamepaused)
+			P1->UpdatePos();
 		P1->Draw();
 
 		for (int i = 0; i < P1Bullet.size(); i++)	//player 1 bullets
 		{
-			P1Bullet[i]->UpdatePos();
+			if(!isGamepaused)
+				P1Bullet[i]->UpdatePos();
 			P1Bullet[i]->Draw();
 		}
 	}
 
 	if (P2)//Player 2 is Alive
 	{
-		P2->UpdatePos();
+		if (!isGamepaused)
+			P2->UpdatePos();
 		P2->Draw();
 
 		for (int i = 0; i < P2Bullet.size(); i++)//player 2 bullets
 		{
-			P2Bullet[i]->UpdatePos();
+			if (!isGamepaused)
+				P2Bullet[i]->UpdatePos();
 			P2Bullet[i]->Draw();
 		}
 	}
@@ -205,10 +210,6 @@ void Canvas:: ShowGameName()
 //---------------------~>[ UpdateScore ]<~---------------------
 void Canvas:: MenuStartButton()
 {
-	//Game Name
-	DisplayText("BATTLE TANKS", GAME_WIDTH / 2 - 100, GAME_HEIGHT/2+80, Color::SPRINGGREEN());
-	DisplayText("BATTLE TANKS", GAME_WIDTH / 2 - 100, GAME_HEIGHT/2+80 - 1, Color::SPRINGGREEN());
-	DisplayText("BATTLE TANKS", GAME_WIDTH / 2 - 100-1, GAME_HEIGHT/2+80 + 1, Color::MAGENTA());
 
 	//Start Button
 	double x_min = GAME_WIDTH / 2.0-75;
@@ -220,10 +221,20 @@ void Canvas:: MenuStartButton()
 	DrawRectangleCorner(x_min, y_min, x_max, y_max);
 	DisplayText("BATTLE", GAME_WIDTH / 2 - 60, GAME_HEIGHT / 2 , Color::SPRINGGREEN());
 
+	DrawObstacles();
+	DrawPlayers();									//order matters this call should be below Physics2D
+	UpdateScore();
+	ShowGameName();
+
 	//check start clicked
 	if (xMouseClick<x_max && xMouseClick>x_min && yMouseClick<y_max && yMouseClick>y_min)
 	{
 		isGamepaused = false;
 		xMouseClick = yMouseClick = 0;
 	}
+
+	//Game Name
+	DisplayText("BATTLE TANKS", GAME_WIDTH / 2 - 100, GAME_HEIGHT/2+80, Color::SPRINGGREEN());
+	DisplayText("BATTLE TANKS", GAME_WIDTH / 2 - 100, GAME_HEIGHT/2+80 - 1, Color::SPRINGGREEN());
+	DisplayText("BATTLE TANKS", GAME_WIDTH / 2 - 100-1, GAME_HEIGHT/2+80 + 1, Color::MAGENTA());
 }

@@ -9,6 +9,7 @@ class GameObject
 protected:
 	Vector2 centre;			//centre coordinate of gameobject
 	Color color;			//color of GameObject
+	Color internal;
 	int state;				//state during game
 	int drawState;          //state of drawing
 	int height;				//size of GameObject
@@ -23,11 +24,12 @@ public:
 	void SetSize(int sz)               { this->height = sz; }
 	void SetWidth(int wd)              { this->width = wd; }
 	void SetSpeed(double sp)           { this->speed = sp; }
+	void SetInternalColor(const Color& c) { internal = c; }
 
 	//getters
 	int GetDrawState()      { return drawState; }
 	int GetState()          { return state; }
-	Vector2 GetCentre()     { return centre; }
+	virtual Vector2 GetCentre()     { return centre; }
 	Color GetPlayerColor()  { return color; }
 	int GetSize()           { return height; }
 

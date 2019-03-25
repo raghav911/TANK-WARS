@@ -6,7 +6,6 @@
 
 class Obstacle:public GameObject
 {
-	Color internal;
 	void Init(int ht,int wd)
 	{
 		this->height = ht;
@@ -30,7 +29,6 @@ public:
 		Init(ht, wd);
 	}
 
-	void SetInternalColor(const Color& c) { internal = c; }
 
 	//overrided Func
 	void Draw();

@@ -39,6 +39,18 @@ void Level:: InitLevelState(vector<Obstacle*> &obstacle)
 	obstacle.push_back(new Obstacle(GAME_WIDTH / 2, GAME_HEIGHT - GAME_MENU_AREA, 2, GAME_WIDTH));
 	obstacle[obstacle.size()-1]->SetColor(Color::RED());
 	obstacle[obstacle.size()-1]->SetInternalColor(Color::RED());
+
+	obstacle.push_back(new Obstacle(GAME_WIDTH/2.0,2.5,5, GAME_WIDTH));
+	obstacle[obstacle.size() - 1]->SetColor(Color::RED());
+	obstacle[obstacle.size() - 1]->SetInternalColor(Color::RED());
+
+	obstacle.push_back(new Obstacle(2.5,GAME_HEIGHT / 2.0, GAME_HEIGHT,5));
+	obstacle[obstacle.size() - 1]->SetColor(Color::RED());
+	obstacle[obstacle.size() - 1]->SetInternalColor(Color::RED());
+
+	obstacle.push_back(new Obstacle(GAME_WIDTH-2.5, GAME_HEIGHT / 2.0, GAME_HEIGHT, 5));
+	obstacle[obstacle.size() - 1]->SetColor(Color::RED());
+	obstacle[obstacle.size() - 1]->SetInternalColor(Color::RED());
 }
 
 //---------------------~>[ RANDOM LEVEL SELECTION  (1) ]<~---------------------

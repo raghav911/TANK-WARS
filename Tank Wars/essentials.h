@@ -26,6 +26,12 @@ struct Vector2										//point in 2D
 		this->x = x;
 		this->y = y;
 	}
+
+	Vector2 operator () (double x = 0, double y = 0) 
+	{
+		Vector2 temp(x, y);
+		return temp;
+	}
 };
 
 struct Color										
@@ -91,10 +97,27 @@ void DrawRectangle(double x,double y,double len,double wid)
 //draws Filled rectangle with bottomleft,topright points
 void DrawRectangleCorner(double x_min, double y_min, double x_max, double y_max)
 {
-	glBegin(GL_QUADS);
+	glBegin(GL_LINE_LOOP);
 	glVertex2d(x_min,y_min);
 	glVertex2d(x_max,y_min);
 	glVertex2d(x_max,y_max);
 	glVertex2d(x_min,y_max);
 	glEnd();
+}
+
+
+void DText(string text, int x, int y, const Color& c = Color::RED(), int font = 5)
+{
+	//selecting the font
+	void *p = NULL;
+	if (font < 8 && font>0)	p = ((void *)font);
+	else				    p = ((void *)5);
+
+	Color textColor = c;
+	textColor.SetGLColor();
+
+	glRasterPos2f(x, y);
+	size_t len = text.length();
+	for (int i = 0; i < len; i++)
+		glutBitmapCharacter(p, (int)text[i]);
 }
