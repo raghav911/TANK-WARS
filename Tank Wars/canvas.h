@@ -34,18 +34,13 @@ void Canvas:: Clear()
 //---------------------~>[ Display TEXT ]<~---------------------
 void Canvas::DisplayText(string text, int x, int y,const Color& c=Color::RED(),int font=5)
 {
-	//selecting the font
-	void *p=NULL;
-	if(font<8 && font>0)	p = ((void *)font);
-	else				    p = ((void *)5);
-
 	Color textColor = c;
 	textColor.SetGLColor();
 	
 	glRasterPos2f(x, y);
 	size_t len = text.length();
 	for (int i = 0; i < len; i++)
-		glutBitmapCharacter(p, (int)text[i]);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, (int)text[i]);
 }
 
 //---------------------~>[ UPDATE ]<~---------------------
@@ -219,12 +214,12 @@ void Canvas:: MenuStartButton()
 	
 	Color::OBSTACLE_LIGHT().SetGLColor();
 	DrawRectangleCorner(x_min, y_min, x_max, y_max);
-	DisplayText("BATTLE", GAME_WIDTH / 2 - 60, GAME_HEIGHT / 2 , Color::SPRINGGREEN());
+	DisplayText("START", GAME_WIDTH / 2 - 60, GAME_HEIGHT / 2 , Color::SPRINGGREEN());
 
 	DrawObstacles();
 	DrawPlayers();									//order matters this call should be below Physics2D
-	UpdateScore();
-	ShowGameName();
+	//UpdateScore();
+	//ShowGameName();
 
 	//check start clicked
 	if (xMouseClick<x_max && xMouseClick>x_min && yMouseClick<y_max && yMouseClick>y_min)
@@ -234,7 +229,7 @@ void Canvas:: MenuStartButton()
 	}
 
 	//Game Name
-	DisplayText("BATTLE TANKS", GAME_WIDTH / 2 - 100, GAME_HEIGHT/2+80, Color::SPRINGGREEN());
-	DisplayText("BATTLE TANKS", GAME_WIDTH / 2 - 100, GAME_HEIGHT/2+80 - 1, Color::SPRINGGREEN());
+	DisplayText("BATTLE TANKS", GAME_WIDTH / 2 - 100, GAME_HEIGHT/2+80, Color::RED());
+	DisplayText("BATTLE TANKS", GAME_WIDTH / 2 - 100, GAME_HEIGHT/2+80 - 1, Color::RED());
 	DisplayText("BATTLE TANKS", GAME_WIDTH / 2 - 100-1, GAME_HEIGHT/2+80 + 1, Color::MAGENTA());
 }

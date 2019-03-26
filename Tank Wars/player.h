@@ -11,7 +11,7 @@ class Player:public GameObject
 	void Init(int dState = UPWARD)
 	{
 		height = 15;
-		speed = 1.7;
+		speed = 2;
 		drawState = dState;
 		state = NEUTRAL;
 		sizeReducedPerHit=0.9;
@@ -194,10 +194,10 @@ Vector2 Player::GetCentre()
 void Player::Draw()
 {
 	////DRAWS COLLIDERS
-	//DrawRectangleCorner(GetBottomLeft().x,GetBottomLeft().y, GetTopRight().x, GetTopRight().y);
+	/*DrawRectangleCorner(GetBottomLeft().x,GetBottomLeft().y, GetTopRight().x, GetTopRight().y);
 
-	//DText("o", GetBottomLeft().x, GetBottomLeft().y,Color::RED(),3);
-	//DText("o", GetTopRight().x, GetTopRight().y,Color::YELLOW(),3);
+	DText("o", GetBottomLeft().x, GetBottomLeft().y,Color::RED(),3);
+	DText("o", GetTopRight().x, GetTopRight().y,Color::YELLOW(),3);*/
 
 	double x, y, size;
 	

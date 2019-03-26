@@ -95,9 +95,12 @@ void DrawRectangle(double x,double y,double len,double wid)
 
 //support function to reduce code size somewhere :)
 //draws Filled rectangle with bottomleft,topright points
-void DrawRectangleCorner(double x_min, double y_min, double x_max, double y_max)
+void DrawRectangleCorner(double x_min, double y_min, double x_max, double y_max, bool filled = true)
 {
-	glBegin(GL_LINE_LOOP);
+	if(filled)
+		glBegin(GL_QUADS);
+	else
+		glBegin(GL_LINE_LOOP);
 	glVertex2d(x_min,y_min);
 	glVertex2d(x_max,y_min);
 	glVertex2d(x_max,y_max);
@@ -105,19 +108,14 @@ void DrawRectangleCorner(double x_min, double y_min, double x_max, double y_max)
 	glEnd();
 }
 
-
+//for debugging purposes
 void DText(string text, int x, int y, const Color& c = Color::RED(), int font = 5)
 {
-	//selecting the font
-	void *p = NULL;
-	if (font < 8 && font>0)	p = ((void *)font);
-	else				    p = ((void *)5);
-
 	Color textColor = c;
 	textColor.SetGLColor();
 
 	glRasterPos2f(x, y);
 	size_t len = text.length();
 	for (int i = 0; i < len; i++)
-		glutBitmapCharacter(p, (int)text[i]);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, (int)text[i]);
 }

@@ -9,6 +9,7 @@ class GameManager
 {
 	//ansilary
 	static bool Obj1ColWithObj2(GameObject *Obj1,GameObject *Obj2);
+	
 	static bool BulletsColWithPlayer(vector<Projectile*> &Bullets,GameObject *Obj);
 
 public:

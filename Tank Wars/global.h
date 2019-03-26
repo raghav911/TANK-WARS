@@ -193,11 +193,11 @@ void ResetGame()
 	P2HitTaken = 0;
 
 	//Player Colors
-	P1color.SetColor(Color::CYAN());
-	P2color.SetColor(Color::MAGENTA());
+	P1color.SetColor(Color::RED());
+	P2color.SetColor(Color::GREEN());
 
 	P1 = new Player(30, GAME_HEIGHT/2,FORWARD);
-	P1->SetInternalColor(Color::BLUE());
+	P1->SetInternalColor(Color::YELLOW());
 	P1->SetColor(P1color);
 	P1->Draw();
 	P1Alive = true;

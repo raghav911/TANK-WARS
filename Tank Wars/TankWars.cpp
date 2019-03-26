@@ -13,7 +13,7 @@ using namespace std;
 #include "essentials.h"
 #include "object.h"
 #include "player.h"
-#include "projectile.h"
+#include "Projectile.h"
 #include "Obstacle.h"
 #include "GameArea.h"
 #include "LevelInformation.h"
