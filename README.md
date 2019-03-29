@@ -1,7 +1,6 @@
 # TANK-WARS
 2D game made in c++ &amp; OpenGl using Object Oriented Programming
-
-~~~~~~~~~~~~{ WELCOME TO TANK WARS }~~~~~~~~~~~~\
+ WELCOME TO TANK WARS\
 	2 Players can play on the same Device\
 	 #### MOTIVE:\
 	 You need to destroy other Player in Arena,you can Shoot Bullets to Destroy Other Player\
