@@ -8,6 +8,9 @@
 //int width = 650;
 //int height = 400;
 
+//game Area
+void DrawPlayers();
+
 
 //callbacks
 void Reshape(int,int);
@@ -38,7 +41,7 @@ void Init()
 	glClearColor((double)57/255, (double)64/255, (double)62/255,1);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glFlush();
-	InitCallbackFunc();
+	
 }
 
 //---------------------~>[ CLEAR ]<~---------------------
@@ -57,6 +60,7 @@ void InitCallbackFunc()
 	glutMouseFunc(MouseFunc);
 	glutSpecialFunc(KeyboardSpec);
 	glutReshapeFunc(Reshape);
+	//glutFullScreen();
 }
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
@@ -66,14 +70,29 @@ void InitCallbackFunc()
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<//
 
 //---------------------~>[ Reshape ]<~---------------------
-void Reshape(int x,int y)
+//sharma reshape
+
+//void Reshape(int x,int y)
+//{
+//	if (GAME_WIDTH == x && GAME_HEIGHT == y) return;
+//	
+//	//preventing user from reshaping the window :)
+//	glutReshapeWindow(GAME_WIDTH,GAME_HEIGHT);
+//	clear();
+//}
+
+// Ajay (Lunga) Reshape
+void Reshape(int x, int y)
 {
-	if (GAME_WIDTH == x && GAME_HEIGHT == y) return;
-	
-	//preventing user from reshaping the window :)
-	glutReshapeWindow(GAME_WIDTH,GAME_HEIGHT);
-	clear();
+	if (y == 0 || x == 0) return;
+
+	//cout << x;
+	GAME_WIDTH = x;
+	GAME_HEIGHT = y;
+	Level::CurrentLevel(gameObstacles);
+	DrawPlayers();
 }
+
 
 //---------------------~>[ Dispaly ]<~---------------------
 void Display(){}
@@ -176,42 +195,6 @@ void KeyboardSpec(int key, int, int)
 //					:~>  GAME_AREA <~:
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<//
 
-//---------------------~>[ RESET GAME ]<~---------------------
-void ResetGame()
-{
-	if (P1) delete P1;
-	if (P2) delete P2;
-
-	//Level::RandomLevel(gameObstacles);
-	Level::RandomLevel(gameObstacles);
-
-
-	P1Bullet.clear();
-	P2Bullet.clear();
-
-	P1HitTaken = 0;
-	P2HitTaken = 0;
-
-	//Player Colors
-	P1color.SetColor(Color::RED());
-	P2color.SetColor(Color::GREEN());
-
-	P1 = new Player(30, GAME_HEIGHT/2,FORWARD);
-	P1->SetInternalColor(Color::YELLOW());
-	P1->SetColor(P1color);
-	P1->Draw();
-	P1Alive = true;
-	
-	P2 = new Player(GAME_WIDTH-30, GAME_HEIGHT/2,BACKWARD);
-	P2->SetInternalColor(Color::BLUE());
-	P2->SetColor(P2color);
-	P2->Draw();
-	P2Alive = true;
-
-	glFlush();
-	isGameRunning = true;
-	Canvas::Update();
-}
 
 //---------------------~>[ PLAYER CONTROLS ]<~---------------------
 void P1Shoots()					//P1 Shooting Controls
@@ -300,4 +283,45 @@ void PlayerControls(int key,int controllerType)
 		//MOUSE ends here
 		break;
 	}//switch controller type ends here
+}
+
+//---------------------~>[ RESET GAME ]<~---------------------
+
+void DrawPlayers()
+{
+	if (P1) delete P1;
+	if (P2) delete P2;
+
+	P1color.SetColor(Color::RED());
+	P1 = new Player(30, GAME_HEIGHT / 2, FORWARD);
+	P1->SetInternalColor(Color::YELLOW());
+	P1->SetColor(P1color);
+	P1->Draw();
+
+	P2color.SetColor(Color::GREEN());
+	P2 = new Player(GAME_WIDTH - 30, GAME_HEIGHT / 2, BACKWARD);
+	P2->SetInternalColor(Color::BLUE());
+	P2->SetColor(P2color);
+	P2->Draw();
+}
+
+
+void ResetGame()
+{
+	//Level::RandomLevel(gameObstacles);
+	Level::RandomLevel(gameObstacles);
+
+	P1Bullet.clear();
+	P1HitTaken = 0;
+	P1Alive = true;
+
+	P2Bullet.clear();
+	P2HitTaken = 0;
+	P2Alive = true;
+
+	DrawPlayers();
+
+	glFlush();
+	isGameRunning = true;
+	Canvas::Update();
 }

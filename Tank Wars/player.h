@@ -6,7 +6,7 @@
 class Player:public GameObject
 {
 	double sizeReducedPerHit;
-	double centreOffset=0;
+	double centreOffset=0; 
 
 	void Init(int dState = UPWARD)
 	{
@@ -16,7 +16,6 @@ class Player:public GameObject
 		state = NEUTRAL;
 		sizeReducedPerHit=0.9;
 		centreOffset = height;
-
 	}
 public:
 	
@@ -194,11 +193,11 @@ Vector2 Player::GetCentre()
 void Player::Draw()
 {
 	////DRAWS COLLIDERS
-	/*DrawRectangleCorner(GetBottomLeft().x,GetBottomLeft().y, GetTopRight().x, GetTopRight().y);
+	//DrawRectangleCorner(GetBottomLeft().x,GetBottomLeft().y, GetTopRight().x, GetTopRight().y);
 
-	DText("o", GetBottomLeft().x, GetBottomLeft().y,Color::RED(),3);
-	DText("o", GetTopRight().x, GetTopRight().y,Color::YELLOW(),3);*/
-
+	/*DText("o", GetBottomLeft().x, GetBottomLeft().y,Color::RED(),3);
+	DText("o", GetTopRight().x, GetTopRight().y,Color::YELLOW(),3);
+	*/
 	double x, y, size;
 	
 	x = centre.x;

@@ -25,9 +25,16 @@ int main(int argc,char** argv)
 {
 	glutInit(&argc,argv);
 	Init();
+	InitCallbackFunc();
 
 	ResetGame();
 
 	glutMainLoop();
 	return 0;
 }
+
+
+
+
+//THANKS FOR PLAYING
+//MADE BY: SHUBAM SHARMA

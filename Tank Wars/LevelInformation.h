@@ -11,15 +11,21 @@
 //if u want to change then play only BasicLevel which is not dependent on the width and height
 //THANKYOU
 
+enum LevelID
+{
+	BASIC=1,MALL,DEVSARENA,LABYRINTH
+};
 
 //static Class
 class Level
 {	
 	static int Count;
 	static int LevelsCount;
+	static int currentLevel;
 	static void InitLevelState(vector<Obstacle*> &obstacle);
 public:
 	static void RandomLevel(vector<Obstacle*> &obstacle);
+	static void CurrentLevel(vector<Obstacle*> &obstacle);
 
 	//MAPS
 	static void BasicLevel(vector<Obstacle*> &obstacle);
@@ -29,6 +35,7 @@ public:
 };
 int Level::Count;
 int Level::LevelsCount=4;
+int Level::currentLevel;
 
 //boundary of the game
 void Level:: InitLevelState(vector<Obstacle*> &obstacle)
@@ -61,21 +68,43 @@ void Level::RandomLevel(vector<Obstacle*> &obstacle)
 	switch (Count++ % LevelsCount)
 	{
 	case 0:
+		currentLevel = BASIC;
 		BasicLevel(obstacle);
 		break;
 	case 1:
+		currentLevel = MALL;
 		Mall_Arena(obstacle);
 		break;
 	case 2:
+		currentLevel = DEVSARENA;
 		Devsrena(obstacle);
 		break;
 	case 3:
+		currentLevel = LABYRINTH;
 		LabyRinth(obstacle);
 		break;
 	}
 }
 
-
+void Level::CurrentLevel(vector<Obstacle*> &obstacle)
+{
+	InitLevelState(obstacle);
+	switch (currentLevel)
+	{
+	case BASIC:
+		BasicLevel(obstacle);
+		break;
+	case MALL:
+		Mall_Arena(obstacle);
+		break;
+	case DEVSARENA:
+		Devsrena(obstacle);
+		break;
+	case LABYRINTH:
+		LabyRinth(obstacle);
+		break;
+	}
+}
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 //					:~>  WORLD_MAPS <~:
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<//
