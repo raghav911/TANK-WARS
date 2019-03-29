@@ -78,6 +78,9 @@ struct Color
 	static Color TEAL()       {	Color temp(0,128,128)    ;return temp;  }
 	static Color OBSTACLE_DARK(){Color temp{33,33,33}    ;return temp;  }
 	static Color OBSTACLE_LIGHT(){Color temp{131,140,125}    ;return temp;  }
+
+	static Color ARROWHEAD1() { return Color::YELLOW(); }
+	static Color ARROWHEAD2() { return Color::YELLOW(); }
 };
 
 

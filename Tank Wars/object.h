@@ -39,6 +39,10 @@ public:
 	//Box Collider
 	virtual Vector2 GetTopRight()=0;    //returns topright point of object area
 	virtual Vector2 GetBottomLeft()=0;   //returns bottomleft point of object area
+
+
+	//debugging func
+	void DrawColliders();
 };
 
 
@@ -47,3 +51,12 @@ public:
   //                     to draw the previous state of object                                    //
  //GetTopRight & GetBottomLeft are virtual because every gameobject have their own              //
 //boudary(colliders) and my game supports only BOX Collider                                    //
+
+void GameObject::DrawColliders()
+{
+	//DRAWS COLLIDERS
+	DrawRectangleCorner(GetBottomLeft().x,GetBottomLeft().y, GetTopRight().x, GetTopRight().y,false);
+	DText("o", GetBottomLeft().x, GetBottomLeft().y,Color::RED(),3);
+	DText("o", GetTopRight().x, GetTopRight().y,Color::YELLOW(),3);
+
+}

@@ -10,10 +10,10 @@ class Projectile:public GameObject
 	double damage;
 	void init()
 	{
-		speed = 3;
-		height = 30;
-		width = 5;
-		headRatio = 3.5;
+		speed = 3.3;
+		height = 39;
+		width = 7.2;
+		headRatio = 2.9;				//inversely propotional
 		boxColliderOffset = 0.4;
 		damage = 1;						//damage this bullet will imflict on others
 	}
@@ -106,6 +106,7 @@ void Projectile::UpdatePos()
 //---------------------~>[ Draw ]<~---------------------
 void Projectile::Draw()
 {
+	//DrawColliders();
 	this->color.SetGLColor();
 
 	switch (state)
@@ -121,8 +122,13 @@ void Projectile::Draw()
 
 		glBegin(GL_TRIANGLES);//arrowhead
 		
+		this->color.SetGLColor();
 		glVertex2d(centre.x + height / 2, centre.y);
+
+		Color::ARROWHEAD1().SetGLColor();
 		glVertex2d((centre.x + height / 2)-height/headRatio, centre.y+height/headRatio);
+		
+		Color::ARROWHEAD2().SetGLColor();
 		glVertex2d((centre.x + height / 2)-height/headRatio, centre.y-height/headRatio);
 		
 		glEnd();
@@ -138,8 +144,13 @@ void Projectile::Draw()
 
 		glBegin(GL_TRIANGLES);//arrowhead
 
+		this->color.SetGLColor();
 		glVertex2d(centre.x - height / 2, centre.y);
+		
+		Color::ARROWHEAD1().SetGLColor();
 		glVertex2d((centre.x - height / 2) + height/headRatio, centre.y + height/headRatio);
+		
+		Color::ARROWHEAD2().SetGLColor();
 		glVertex2d((centre.x - height / 2) + height/headRatio, centre.y - height/headRatio);
 
 		glEnd();
@@ -155,8 +166,13 @@ void Projectile::Draw()
 
 		glBegin(GL_TRIANGLES);//arrowhead
 
+		this->color.SetGLColor();
 		glVertex2d(centre.x, centre.y+height/2);
+		
+		Color::ARROWHEAD1().SetGLColor();
 		glVertex2d(centre.x - height/headRatio, centre.y+height/2 - height/headRatio);
+		
+		Color::ARROWHEAD2().SetGLColor();
 		glVertex2d(centre.x + height/headRatio, centre.y+height/2 - height/headRatio);
 
 		glEnd();
@@ -172,8 +188,13 @@ void Projectile::Draw()
 
 		glBegin(GL_TRIANGLES);//arrowhead
 
+		this->color.SetGLColor();
 		glVertex2d(centre.x, centre.y - height / 2);
+		
+		Color::ARROWHEAD1().SetGLColor();
 		glVertex2d(centre.x - height/headRatio, centre.y - height / 2 + height/headRatio);
+		
+		Color::ARROWHEAD2().SetGLColor();
 		glVertex2d(centre.x + height/headRatio, centre.y - height / 2 + height/headRatio);
 
 		glEnd();
