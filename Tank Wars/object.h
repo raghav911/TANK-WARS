@@ -15,35 +15,73 @@ protected:
 	int height;				//size of GameObject
 	int width;				//width of gameobject
 	double speed;			//speed of gameobject
+	double health;			//health of gameobject
+	double damage;			//damage given by this gameobject
+
 public:
+	GameObject()
+	{
+		//initialize to initial state
+		centre(0, 0);
+		color = Color::RED();
+		internal = Color::BLACK();
+		state = NEUTRAL;
+		drawState = NEUTRAL;
+		height = 0;
+		width = 0;
+		speed = 0;
+		health = 0;
+		damage = 0;
+	}
+
 
 	//setters
-	void SetState(int st)              { this->state = st; }
-	void SetColor(int r, int g, int b) { color.SetColor(r, g, b); }
-	void SetColor(const Color &c)      { color = c; }
-	void SetSize(int sz)               { this->height = sz; }
-	void SetWidth(int wd)              { this->width = wd; }
-	void SetSpeed(double sp)           { this->speed = sp; }
-	void SetInternalColor(const Color& c) { internal = c; }
+	virtual void SetState(int st)                 { this->state = st; }
+	virtual void SetColor(int r, int g, int b)    { color.SetColor(r, g, b); }
+	virtual void SetColor(const Color &c)         { color = c; }
+	virtual void SetSize(int sz)                  { this->height = sz; }
+	virtual void SetWidth(int wd)                 { this->width = wd; }
+	virtual void SetSpeed(double sp)              { this->speed = sp; }
+	virtual void SetInternalColor(const Color& c) { internal = c; }
+	virtual void IncreaseSpeed(double in) {}
 
 	//getters
-	int GetDrawState()      { return drawState; }
-	int GetState()          { return state; }
-	Color GetPlayerColor()  { return color; }
-	int GetSize()           { return height; }
-	virtual Vector2 GetCentre()     { return centre; }
-	virtual string GetType() { return "gameobject"; }
+	virtual int GetDrawState()                    { return drawState; }
+	virtual int GetState()                        { return state; }
+	virtual int GetSize()                         { return height; }
+	virtual Color GetPlayerColor()                { return color; }
+	virtual Vector2 GetCentre()                   { return centre; }
+	virtual string GetType()                      { return "gameobject"; }
+	virtual bool IsDead()                         { return health <= 0 ? true : false; }
+	virtual void RecieveDamage(double dmg)        { this->health -= dmg; }
+	virtual double GetDamage()                    { return this->damage; }
+	
 
+	//drawing func
 	virtual void Draw() = 0;
 	virtual void UpdatePos() = 0;
+
 	//Box Collider
 	virtual Vector2 GetTopRight()=0;    //returns topright point of object area
 	virtual Vector2 GetBottomLeft()=0;   //returns bottomleft point of object area
 
-
 	//debugging func
 	void DrawColliders();
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     //                                   FUTURE NOTES                                              //

@@ -170,10 +170,21 @@ void GameManager:: CheckBulletBulletCollision()
 			//if i bullet of P1 collides with j bullet of P2 then desroy both Bullets
 			if (Obj1ColWithObj2(P1Bullet[i], P2Bullet[j]))
 			{
-				P1Bullet.erase(P1Bullet.begin()+i);
-				P2Bullet.erase(P2Bullet.begin()+j);
-				
-				i--;
+				//cache damage of bullets
+				double p1Damage = P1Bullet[i]->GetDamage();
+				double p2Damage = P2Bullet[i]->GetDamage();
+				P1Bullet[i]->RecieveDamage(p2Damage);
+ 				P2Bullet[j]->RecieveDamage(p1Damage);
+
+				if (P1Bullet[i]->IsDead())
+				{
+					P1Bullet.erase(P1Bullet.begin() + i);
+					i--;
+				}
+
+				if(P2Bullet[j]->IsDead())
+    				P2Bullet.erase(P2Bullet.begin()+j);
+
 				break;
 			}
 		}

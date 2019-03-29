@@ -7,16 +7,18 @@ class Player:public GameObject
 {
 	double sizeReducedPerHit;
 	double centreOffset=0; 
-	double health;
+	double criticalHealth;
+
 	void Init(int dState = UPWARD)
 	{
-		height = 15;
-		speed = 2;
-		drawState = dState;
-		state = NEUTRAL;
-		sizeReducedPerHit=0.9;
-		centreOffset = height;
-		health = 3;
+		height              = 15;
+		speed               = 2;
+		drawState           = dState;
+		state               = NEUTRAL;
+		sizeReducedPerHit   = 0.9;
+		centreOffset        = height;
+		health              = 4;
+		criticalHealth      = 1;
 	}
 public:
 	
@@ -32,27 +34,60 @@ public:
 		Init();
 	}
 
+	//unique functions
 	void MoveForward()  { drawState = state = FORWARD; }
 	void MoveBackward() { drawState = state = BACKWARD; }
 	void MoveUpward()   { drawState = state = UPWARD; }
 	void MoveDownward() { drawState = state = DOWNWARD; }
-	void Dash()			{  }
 	void StopMovement() { state = NEUTRAL; }
-
 	void ReduceSize();
-	bool RecieveDamage(double damage);
-	bool IsDead() { if (health <= 0)return true; return false; }
-    
+	bool RageMode()     { return health <= criticalHealth ? true : false; }
+	//void Dash()			{  }
+	
 	//overrided func
 	void Draw();
 	void UpdatePos();
+
+	//setters
+	void SetState(int st)                 { this->state = st; }
+	void SetColor(int r, int g, int b)    { color.SetColor(r, g, b); }
+	void SetColor(const Color &c)         { color = c; }
+	void SetSize(int sz)                  { this->height = sz; }
+	void SetWidth(int wd)                 { this->width = wd; }
+	void SetSpeed(double sp)              { this->speed = sp; }
+	void SetInternalColor(const Color& c) { internal = c; }
+	void IncreaseSpeed(double inc)        { speed += inc; }
+
+	//getters
+	string GetType()                      { return "player"; }
+	int GetDrawState()                    { return drawState; }
+	int GetState()                        { return state; }
+	int GetSize()                         { return height; }
+	Color GetPlayerColor()                { return color; }
+	bool IsDead()                         { return health <= 0 ? true : false; }
+	void RecieveDamage(double dmg)        { this->health -= dmg; }
 	Vector2 GetCentre();
-	string GetType() { return "player"; }
+	//double GetDamage()                  { return this->damage; }
 
 	//Box Colliders
-	Vector2 GetTopRight();    //returns topright point of player area
+	Vector2 GetTopRight();     //returns topright point of player area
 	Vector2 GetBottomLeft();   //returns bottomleft point of player area
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //---------------------~>[ Get Player Extremes POSITION ]<~---------------------
 Vector2 Player:: GetBottomLeft()   //returns bottomleft point of player area
@@ -80,7 +115,7 @@ Vector2 Player:: GetBottomLeft()   //returns bottomleft point of player area
 }
 Vector2 Player:: GetTopRight()   //returns bottomleft point of player area
 {
-	Vector2 temp;// (centre.x + 7 * height / 5, centre.y + 3 * height);
+	Vector2 temp;
 	switch (drawState)
 	{
 	case UPWARD:
@@ -142,12 +177,12 @@ void Player:: ReduceSize()
 	}
 }
 
-bool Player::RecieveDamage(double damage)
-{
-	health -= damage;
-	if (health <= 0) return true;
-	return false;
-}
+//bool Player::RecieveDamage(double damage)
+//{
+//	health -= damage;
+//	if (health <= 0) return true;
+//	return false;
+//}
 
 //---------------------~>[ GET_CENTRE ]<~---------------------
 Vector2 Player::GetCentre()
@@ -207,12 +242,11 @@ Vector2 Player::GetCentre()
 //---------------------~>[ Sangu Draw ]<~---------------------
 void Player::Draw()
 {
-	////DRAWS COLLIDERS
+	//DRAWS COLLIDERS
 	//DrawRectangleCorner(GetBottomLeft().x,GetBottomLeft().y, GetTopRight().x, GetTopRight().y);
-
-	/*DText("o", GetBottomLeft().x, GetBottomLeft().y,Color::RED(),3);
-	DText("o", GetTopRight().x, GetTopRight().y,Color::YELLOW(),3);
-	*/
+	//DText("o", GetBottomLeft().x, GetBottomLeft().y,Color::RED(),3);
+	//DText("o", GetTopRight().x, GetTopRight().y,Color::YELLOW(),3);
+	
 	double x, y, size;
 	
 	x = centre.x;

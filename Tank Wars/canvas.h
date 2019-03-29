@@ -15,6 +15,7 @@ private:
 	static void GameOver();
 	static void UpdateScore();
 	static void ShowGameName();
+	static void ShowRageMode();
 	//menu func
 	static void MenuStartButton();
 public:
@@ -73,7 +74,7 @@ void  Canvas::Update(int time=100)
 	DrawPlayers();									//order matters this call should be below Physics2D
 	UpdateScore();
 	ShowGameName();
-
+	ShowRageMode();
 
 	glutSwapBuffers();
 	glutTimerFunc(GameSpeed,Update,0);					   //controls FramePerSec of the game
@@ -198,6 +199,23 @@ void Canvas:: ShowGameName()
 	DisplayText("BATTLE TANKS",GAME_WIDTH/2-100,GAME_HEIGHT-GAME_MENU_AREA/2-1,Color::SPRINGGREEN());
 }
 
+void Canvas::ShowRageMode()
+{
+	double offset = 150;
+	if (P1 && P1->RageMode())
+	{
+		DisplayText("RAGE MODE", 15+offset+1, GAME_HEIGHT - 25, Color::OBSTACLE_LIGHT());
+		DisplayText("RAGE MODE", 15+offset, GAME_HEIGHT - 25, Color::RED());
+		DisplayText("ACTIVATED", 15+offset, GAME_HEIGHT - 50, Color::BLUE());
+	}
+
+	if (P2 && P2->RageMode())
+	{
+		DisplayText("RAGE MODE", GAME_WIDTH - 120-offset+1, GAME_HEIGHT - 25, Color::OBSTACLE_LIGHT());
+		DisplayText("RAGE MODE", GAME_WIDTH - 120-offset, GAME_HEIGHT - 25, Color::RED());
+		DisplayText("ACTIVATED", GAME_WIDTH - 120-offset, GAME_HEIGHT - 50, Color::BLUE());
+	}
+}
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
 //					:~>  MENU <~:
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<//

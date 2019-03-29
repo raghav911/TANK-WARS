@@ -4,42 +4,83 @@
 #include "object.h"
 class Projectile:public GameObject
 {
-	//int pWidth;			//width of Projectile
 	double headRatio;   //size of head(smaller values = bigger head)
 	double boxColliderOffset;
-	double damage;
+	
 	void init()
 	{
-		speed = 3.3;
-		height = 39;
-		width = 7.2;
-		headRatio = 2.9;				//inversely propotional
-		boxColliderOffset = 0.4;
-		damage = 1;						//damage this bullet will imflict on others
+		speed              = 3.3;
+		height             = 39;
+		width              = 7.2;
+		headRatio          = 2.9;				    //inversely propotional
+		boxColliderOffset  = 0.4;
+		damage             = 1;						//damage this bullet will imflict on others
+		health             = 1;						//health of projectile
 	}
 public:
-	Projectile(double x=0,double y=0)
+	Projectile(double x=0,double y=0,double dmg=1)
 	{
 		centre.x = x;
 		centre.y = y;
 		init();
+		health=damage = dmg;
 	}
-	Projectile(const Vector2 &point)
+	Projectile(const Vector2 &point,double dmg=1)
 	{
 		centre = point;
 		init();
+		health=damage = dmg;
 	}
 	
-	double GetDamage() { return damage; }
-	string GetType() { return "projectile"; }
-
 
 	//overrided func
 	void Draw();
 	void UpdatePos();
+
+	//setters
+	void SetState(int st)				  { this->state = st; }
+	void SetColor(int r, int g, int b)    { color.SetColor(r, g, b); }
+	void SetColor(const Color &c)         { color = c; }
+	void SetSize(int sz)                  { this->height = sz; }
+	void SetWidth(int wd)                 { this->width = wd; }
+	void SetSpeed(double sp)              { this->speed = sp; }
+	void SetInternalColor(const Color& c) { internal = c; }
+	void IncreaseSpeed(double inc)        { speed += inc; }
+
+	//getters
+	string GetType()                      { return "projectile"; }
+	int GetDrawState()                    { return drawState; }
+	int GetState()                        { return state; }
+	int GetSize()                         { return height; }
+	Color GetPlayerColor()                { return color; }
+	bool IsDead()                         { if (this->health <= 0)return true; return false; }
+	double GetDamage()                    { return this->damage; }
+	Vector2 GetCentre()                   { return centre; }
+	void RecieveDamage(double dmg)        { health -= dmg; damage -= dmg; }
+
 	Vector2 GetTopRight();    //returns topright point of player area
 	Vector2 GetBottomLeft();   //returns bottomleft point of player area
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //---------------------~>[ VOx Colliders ]<~---------------------
 Vector2 Projectile::GetBottomLeft()   //returns bottomleft point of player area
 {

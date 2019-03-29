@@ -1,6 +1,6 @@
 #1.) change the name of variable in PlayerControl in "global.h"
-#2.)Player Coordinates
-	x_min = x-7*size/5;
+#2.) Player Coordinates
+    x_min = x-7*size/5;
 	y_min = y-5*size/4;
 
 	x_max = x+7*size/5;
@@ -17,7 +17,7 @@
 	#1.) OBSTACLE			  //done
 	#1.) Bullet reflection
 	#2.) Bullet Portal
-	#3.) last bullet stand 
+	#3.) last bullet stand  
 	#4.) Score Display        //done
 	#5.) Player dash ability  //high priority
 	#6.) Shadow Effect in gameName

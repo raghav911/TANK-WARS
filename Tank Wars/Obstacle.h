@@ -8,11 +8,10 @@ class Obstacle:public GameObject
 {
 	void Init(int ht,int wd)
 	{
-		this->height = ht;
-		this->width = wd;
-		this->state = NEUTRAL;
-		this->drawState = NEUTRAL;
-		speed = 1;
+		height     = ht;
+		width      = wd;
+		state      = NEUTRAL;
+		drawState  = NEUTRAL;
 		//internal = Color::BLACK();
 	}
 
@@ -62,6 +61,17 @@ public:
 	//map design helper functions  comment after designing maps//
 };
 
+
+
+
+
+
+
+
+
+
+
+ 
 //---------------------~>[ DRAW ]<~---------------------
 void Obstacle:: Draw()
 {

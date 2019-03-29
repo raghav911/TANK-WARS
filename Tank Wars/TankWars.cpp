@@ -65,6 +65,10 @@ void GameHelpSection()
 
 	cout << "p   := pause/play" << endl;
 	cout << "esc := pause/play" << endl;
+	cout << "When your helth drops to minimum you " << endl;
+	cout << "enter rage mode in this mode your bullets become powerful " << endl;
+	cout << "and fast " << endl;
+
 
 }
 

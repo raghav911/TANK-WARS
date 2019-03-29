@@ -189,18 +189,36 @@ void P1Shoots()					//P1 Shooting Controls
 {
 	if (P1->GetDrawState() != NEUTRAL && P1Bullet.size() < projectileCount)
 	{
-		P1Bullet.push_back(new Projectile(P1->GetCentre()));//P1 bullet based on the curr location of P1
+		double bulletDamage=1;
+		double speedInc=0;
+		if (P1->RageMode())
+		{
+			speedInc = 2.0;
+			bulletDamage = 2.0;
+		}
+
+		P1Bullet.push_back(new Projectile(P1->GetCentre(),bulletDamage));//P1 bullet based on the curr location of P1
 		P1Bullet[P1Bullet.size() - 1]->SetState(P1->GetDrawState());
 		P1Bullet[P1Bullet.size() - 1]->SetColor(P1->GetPlayerColor());
+		P1Bullet[P1Bullet.size() - 1]->IncreaseSpeed(speedInc);
 	}
 }
 void P2Shoots()					//P2 Shooting Controls
 {
 	if (P2Alive && P2->GetDrawState() != NEUTRAL && P2Bullet.size() < projectileCount)
 	{
-		P2Bullet.push_back(new Projectile(P2->GetCentre()));//P1 bullet based on the curr location of P1
+		double bulletDamage = 1;
+		double speedInc = 0;
+		if (P2->RageMode())
+		{
+			speedInc = 2.0;
+			bulletDamage = 2.0;
+		}
+
+		P2Bullet.push_back(new Projectile(P2->GetCentre(),bulletDamage));//P1 bullet based on the curr location of P1
 		P2Bullet[P2Bullet.size() - 1]->SetState(P2->GetDrawState());
 		P2Bullet[P2Bullet.size() - 1]->SetColor(P2->GetPlayerColor());
+		P2Bullet[P2Bullet.size() - 1]->IncreaseSpeed(speedInc);
 	}
 }
 
@@ -227,7 +245,7 @@ void PlayerControls(int key,int controllerType)
 			P1->MoveBackward();
 			break;
 		case 'f':
-			P1->Dash();
+			//P1->Dash();
 			break;
 		case 32://P1 Shoots(space)
 			P1Shoots();
