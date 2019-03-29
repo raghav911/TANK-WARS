@@ -30,3 +30,9 @@
 	#2.) one shot kill
 	#3.) Character Selection
 	#4.) MultiThreaded Controls(Last Priority)
+
+
+
+	//REFACTORING
+	#1.) add damage and maxLife in player class
+	#2.) add damageGiven in projectile Class

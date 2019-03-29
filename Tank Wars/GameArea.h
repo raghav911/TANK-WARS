@@ -23,7 +23,7 @@ vector<Obstacle*>   gameObstacles;
 //Game State variables
 bool isGamepaused=true;
 
-int GameSpeed = 5;									//higher the value slower the game
+int GameSpeed = 5;									//higher the value slower the game(FPS of the Game)
 int projectileCount = 4;							//how much bullet Players can Shoot
 int maxHit = 3;
 int P1HitTaken=0;

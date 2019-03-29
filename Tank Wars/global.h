@@ -126,7 +126,7 @@ void Keyboard(unsigned char key, int, int)
 			ResetGame();
 		break;
 	case 'p':
-		isGamepaused = true;
+		isGamepaused = !isGamepaused;
 		//Canvas::Update();
 		break;
 	}
