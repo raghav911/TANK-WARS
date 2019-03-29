@@ -22,5 +22,5 @@ enter       := Shoots
 p   := pause/play\
 esc := pause/play
 	
-NOTE: if you are not playing in 1355x720 resolution it is highlt recommended to\
+NOTE: if you are not playing in 1355x720 resolution it is highly recommended to\
 uncommment line 300 in "global.h" and comment line 299 in "global.h"
