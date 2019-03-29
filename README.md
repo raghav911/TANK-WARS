@@ -3,7 +3,7 @@
 
 ~~~~~~~~~~~~{ WELCOME TO TANK WARS }~~~~~~~~~~~~\
 	2 Players can play on the same Device\
-	 #### MOTIVE:
+	 #### MOTIVE:\
 	 You need to destroy other Player in Arena,you can Shoot Bullets to Destroy Other Player\
 	 
 	 #### CONTROLS:\
