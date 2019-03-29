@@ -84,7 +84,7 @@ void Level:: InitLevelState(vector<Obstacle*> &obstacle)
 
 void Level::EndLevelState()
 {
-	glPopMatrix();
+	//glPopMatrix();
 }
 
 
@@ -92,7 +92,7 @@ void Level::EndLevelState()
 //
 void Level::RandomLevel(vector<Obstacle*> &obstacle)
 {
-	InitLevelState(obstacle);
+	//InitLevelState(obstacle);
 	switch (Count++ % LevelsCount)
 	{
 	case 0:
@@ -116,7 +116,7 @@ void Level::RandomLevel(vector<Obstacle*> &obstacle)
 
 void Level::CurrentLevel(vector<Obstacle*> &obstacle)
 {
-	InitLevelState(obstacle);
+	//InitLevelState(obstacle);
 	switch (currentLevel)
 	{
 	case BASIC:

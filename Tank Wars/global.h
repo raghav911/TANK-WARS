@@ -296,8 +296,8 @@ void DrawPlayers()
 
 void ResetGame()
 {
-	//Level::RandomLevel(gameObstacles);
 	Level::RandomLevel(gameObstacles);
+	//Level::BasicLevel(gameObstacles);
 
 	P1Bullet.clear();
 	P1Alive = true;
