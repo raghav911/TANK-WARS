@@ -27,10 +27,10 @@ struct Vector2										//point in 2D
 		this->y = y;
 	}
 
-	Vector2 operator () (double x = 0, double y = 0) 
+	void operator () (double x = 0, double y = 0) 
 	{
-		Vector2 temp(x, y);
-		return temp;
+		this->x = x;
+		this->y = y;
 	}
 };
 

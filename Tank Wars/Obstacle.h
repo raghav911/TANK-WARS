@@ -33,11 +33,14 @@ public:
 	//overrided Func
 	void Draw();
 	void UpdatePos() {}
+	string GetType() { return "obstacle"; }
+
 	//Box Collider
 	Vector2 GetTopRight();    //returns topright point of object area
 	Vector2 GetBottomLeft();   //returns bottomleft point of object area
 
-	//map design helper functions  comment after designing maps
+	
+    //map design helper functions  comment after designing maps
 	//void MoveForward() { drawState = state = FORWARD; }
 	//void MoveBackward() { drawState = state = BACKWARD; }
 	//void MoveUpward() { drawState = state = UPWARD; }

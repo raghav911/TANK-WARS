@@ -32,10 +32,9 @@ void Init()
 	glutCreateWindow("TANK WARS");
 
 	//initialize viewport
-	glMatrixMode(GL_PROJECTION);
-	//glLoadIdentity();
 	gluOrtho2D(0, GAME_WIDTH, 0, GAME_HEIGHT);
-	//glMatrixMode(GL_MODELVIEW);
+	glMatrixMode(GL_MODELVIEW);
+	glMatrixMode(GL_PROJECTION);
 
 	//set bg color
 	glClearColor((double)57/255, (double)64/255, (double)62/255,1);
@@ -69,26 +68,15 @@ void InitCallbackFunc()
 //					:~>  CALLBACKS <~:
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<//
 
-//---------------------~>[ Reshape ]<~---------------------
-//sharma reshape
-
-//void Reshape(int x,int y)
-//{
-//	if (GAME_WIDTH == x && GAME_HEIGHT == y) return;
-//	
-//	//preventing user from reshaping the window :)
-//	glutReshapeWindow(GAME_WIDTH,GAME_HEIGHT);
-//	clear();
-//}
-
-// Ajay (Lunga) Reshape
-void Reshape(int x, int y)
+void Reshape(int w, int h)
 {
-	if (y == 0 || x == 0) return;
+	if (w == 0 || h == 0) return;
 
-	//cout << x;
-	GAME_WIDTH = x;
-	GAME_HEIGHT = y;
+	//Level::SetLevelScale((double)w/1355,(double)h/720);
+	//Level::SetLevelScale(0.5,0.5);
+
+	GAME_WIDTH = w;
+	GAME_HEIGHT = h;
 	Level::CurrentLevel(gameObstacles);
 	DrawPlayers();
 }
@@ -312,11 +300,9 @@ void ResetGame()
 	Level::RandomLevel(gameObstacles);
 
 	P1Bullet.clear();
-	P1HitTaken = 0;
 	P1Alive = true;
 
 	P2Bullet.clear();
-	P2HitTaken = 0;
 	P2Alive = true;
 
 	DrawPlayers();

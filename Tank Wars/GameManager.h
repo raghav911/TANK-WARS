@@ -10,7 +10,9 @@ class GameManager
 	//ansilary
 	static bool Obj1ColWithObj2(GameObject *Obj1,GameObject *Obj2);
 	
-	static bool BulletsColWithPlayer(vector<Projectile*> &Bullets,GameObject *Obj);
+	//ansilary
+	static bool BulletsColWithPlayer(vector<Projectile*> &Bullets,Player *P);
+	static bool BulletsColWithObj(vector<Projectile*> &Bullets,GameObject *obj);
 
 public:
 	//Physics2D
@@ -59,7 +61,7 @@ bool GameManager:: Obj1ColWithObj2(GameObject *obj1,GameObject *obj2)
 }
 
 //---------------------~>[ Bullets Col With P ]<~---------------------
-bool GameManager:: BulletsColWithPlayer(vector<Projectile*> &Bullets, GameObject *p)
+bool GameManager:: BulletsColWithPlayer(vector<Projectile*> &Bullets, Player *p)
 {
 	unsigned int bulletCount = Bullets.size();
 
@@ -70,13 +72,40 @@ bool GameManager:: BulletsColWithPlayer(vector<Projectile*> &Bullets, GameObject
 		
 		if (bulletCentre.x > GAME_WIDTH || bulletCentre.y > GAME_HEIGHT || bulletCentre.x < 0 || bulletCentre.y < 0 || hit)
 		{
+			if (hit)
+			{
+				p->RecieveDamage(Bullets[i]->GetDamage());
+				Bullets.erase(Bullets.begin() + i);
+				return true;
+			}
 			Bullets.erase(Bullets.begin() + i);
 			bulletCount--;
-			if (hit) return true;
 		}
 	}//for
 	return false;
 }
+
+bool GameManager::BulletsColWithObj(vector<Projectile*> &Bullets, GameObject *obj)
+{
+	unsigned int bulletCount = Bullets.size();
+
+	for (int i = 0; i < bulletCount; i++)//player 1 bullets
+	{
+		bool hit = Obj1ColWithObj2(Bullets[i], obj);
+		Vector2 bulletCentre = Bullets[i]->GetCentre();
+
+		if (bulletCentre.x > GAME_WIDTH || bulletCentre.y > GAME_HEIGHT || bulletCentre.x < 0 || bulletCentre.y < 0 || hit)
+		{
+			Bullets.erase(Bullets.begin() + i);
+			bulletCount--;
+			if (hit)
+				return true;
+		}
+	}//for
+	return false;
+}
+
+
   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
  //					:~>  ANSILLARY ENDS <~:                      //
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<//
@@ -103,7 +132,7 @@ void GameManager::CheckBulletPlayerCollision()
 	if (isP2hit)
 	{
 		P2->ReduceSize();
-		if (++P2HitTaken >= maxHit)//P1 WINS
+		if (P2->IsDead())//P1 WINS
 		{
 			++P1WinCount;
 
@@ -119,7 +148,7 @@ void GameManager::CheckBulletPlayerCollision()
 	if (isP1hit)
 	{
 		P1->ReduceSize();
-		if (isP1hit && ++P1HitTaken >= maxHit)//P2 WINS
+		if (P1->IsDead())//P2 WINS
 		{
 			++P2WinCount;
 
@@ -161,8 +190,8 @@ void GameManager::CheckGameObjectObstacleCollision()
 	for (int i = 0; i < obsCount; ++i)
 	{
 		bool hit;
-		BulletsColWithPlayer(P1Bullet,gameObstacles[i]);
-		BulletsColWithPlayer(P2Bullet,gameObstacles[i]);
+		BulletsColWithObj(P1Bullet,gameObstacles[i]);
+		BulletsColWithObj(P2Bullet,gameObstacles[i]);
 
 		if (P1)
 		{

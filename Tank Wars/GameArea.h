@@ -25,12 +25,10 @@ bool isGamepaused=true;
 
 int GameSpeed = 5;									//higher the value slower the game(FPS of the Game)
 int projectileCount = 4;							//how much bullet Players can Shoot
-int maxHit = 3;
-int P1HitTaken=0;
-int P2HitTaken=0;
 int P1WinCount = 0;
 int P2WinCount = 0;
 
+//checking click in start button used in "canvas.h"
 int xMouseClick = 0;
 int yMouseClick = 0;
 

@@ -29,11 +29,11 @@ public:
 	//getters
 	int GetDrawState()      { return drawState; }
 	int GetState()          { return state; }
-	virtual Vector2 GetCentre()     { return centre; }
 	Color GetPlayerColor()  { return color; }
 	int GetSize()           { return height; }
+	virtual Vector2 GetCentre()     { return centre; }
+	virtual string GetType() { return "gameobject"; }
 
-	//virtual func
 	virtual void Draw() = 0;
 	virtual void UpdatePos() = 0;
 	//Box Collider

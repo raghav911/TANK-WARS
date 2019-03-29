@@ -7,7 +7,7 @@ class Player:public GameObject
 {
 	double sizeReducedPerHit;
 	double centreOffset=0; 
-
+	double health;
 	void Init(int dState = UPWARD)
 	{
 		height = 15;
@@ -16,6 +16,7 @@ class Player:public GameObject
 		state = NEUTRAL;
 		sizeReducedPerHit=0.9;
 		centreOffset = height;
+		health = 3;
 	}
 public:
 	
@@ -39,11 +40,14 @@ public:
 	void StopMovement() { state = NEUTRAL; }
 
 	void ReduceSize();
-	
-    //overrided func
+	bool RecieveDamage(double damage);
+	bool IsDead() { if (health <= 0)return true; return false; }
+    
+	//overrided func
 	void Draw();
 	void UpdatePos();
 	Vector2 GetCentre();
+	string GetType() { return "player"; }
 
 	//Box Colliders
 	Vector2 GetTopRight();    //returns topright point of player area
@@ -57,21 +61,22 @@ Vector2 Player:: GetBottomLeft()   //returns bottomleft point of player area
 	switch (drawState)
 	{
 	case UPWARD:
-		return temp(centre.x - 7 * height / 5, centre.y - 5 * height / 4);
+		temp(centre.x - 7 * height / 5, centre.y - 5 * height / 4);
 		break;
 
 	case DOWNWARD:
-		return temp(centre.x - 7 * height / 5, centre.y - 3 * height);
+		temp(centre.x - 7 * height / 5, centre.y - 3 * height);
 		break;
 
 	case FORWARD:
-		return temp(centre.x - 5 * height / 4, centre.y -7 * height / 5);
+		temp(centre.x - 5 * height / 4, centre.y -7 * height / 5);
 		break;
 
 	case BACKWARD:
-		return temp(centre.x - 3 * height, centre.y - 7 * height / 5);
+		temp(centre.x - 3 * height, centre.y - 7 * height / 5);
 		break;
 	}
+	return temp;
 }
 Vector2 Player:: GetTopRight()   //returns bottomleft point of player area
 {
@@ -79,21 +84,23 @@ Vector2 Player:: GetTopRight()   //returns bottomleft point of player area
 	switch (drawState)
 	{
 	case UPWARD:
-		return temp(centre.x + 7 * height / 5, centre.y + 3 * height);
+		 temp(centre.x + 7 * height / 5, centre.y + 3 * height);
 		break;
 	case DOWNWARD:
-		return temp(centre.x + 7 * height / 5, centre.y + 5 * height / 4);
+		temp(centre.x + 7 * height / 5, centre.y + 5 * height / 4);
 		break;
 
 	case FORWARD:
-		return temp(centre.x + 3 * height, centre.y + 7 * height / 5);
+		temp(centre.x + 3 * height, centre.y + 7 * height / 5);
 		break;
 
 	case BACKWARD:
-		return temp(centre.x + 5 * height / 4, centre.y + 7 * height / 5);
+		temp(centre.x + 5 * height / 4, centre.y + 7 * height / 5);
 		break;
 	}
+	return temp;
 }
+
 //---------------------~>[ UPDATE POSITION ]<~---------------------
 void Player::UpdatePos()
 {
@@ -135,6 +142,13 @@ void Player:: ReduceSize()
 	}
 }
 
+bool Player::RecieveDamage(double damage)
+{
+	health -= damage;
+	if (health <= 0) return true;
+	return false;
+}
+
 //---------------------~>[ GET_CENTRE ]<~---------------------
 Vector2 Player::GetCentre()
 {
@@ -142,21 +156,22 @@ Vector2 Player::GetCentre()
 	switch (drawState)
 	{
 	case FORWARD:
-		return temp(centre.x+centreOffset,centre.y);
+		temp(centre.x+centreOffset,centre.y);
 		break;
 
 	case BACKWARD:
-		return temp(centre.x - centreOffset, centre.y);
+		temp(centre.x - centreOffset, centre.y);
 		break;
 
 	case UPWARD:
-		return temp(centre.x , centre.y+centreOffset);
+		temp(centre.x , centre.y+centreOffset);
 		break;
 
 	case DOWNWARD:
-		return temp(centre.x, centre.y - centreOffset);
+		temp(centre.x, centre.y - centreOffset);
 		break;
 	}
+	return temp;
 }
 
 //---------------------~>[ Sharma Draw ]<~---------------------

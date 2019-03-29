@@ -7,7 +7,7 @@ class Projectile:public GameObject
 	//int pWidth;			//width of Projectile
 	double headRatio;   //size of head(smaller values = bigger head)
 	double boxColliderOffset;
-	
+	double damage;
 	void init()
 	{
 		speed = 3;
@@ -15,6 +15,7 @@ class Projectile:public GameObject
 		width = 5;
 		headRatio = 3.5;
 		boxColliderOffset = 0.4;
+		damage = 1;						//damage this bullet will imflict on others
 	}
 public:
 	Projectile(double x=0,double y=0)
@@ -28,10 +29,11 @@ public:
 		centre = point;
 		init();
 	}
-
-	void MoveForward()  {state = FORWARD; }
-	void MoveBackward() {state = BACKWARD; }
 	
+	double GetDamage() { return damage; }
+	string GetType() { return "projectile"; }
+
+
 	//overrided func
 	void Draw();
 	void UpdatePos();
