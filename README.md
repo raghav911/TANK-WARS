@@ -41,7 +41,8 @@ esc := exit
 NOTE: If you want to custimize controls then check 'PlayerControls' function in "global.h"
 
 NOTE: if you are not playing in 1355x720 resolution it is highly recommended to\
-uncommment line 300 in "global.h" and comment line 299 in "global.h"
+commment first line of 'ResetGame' Func in "global.h" and uncomment second line of this func\
+in "global.h"
 
 If you want to change Parameters of game like\
 No. of bullets that Player Can Shoot you can Change That\
