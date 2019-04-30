@@ -12,7 +12,7 @@ class Player:public GameObject
 	void Init(int dState = UPWARD)
 	{
 		height              = 15;
-		speed               = 2;
+		speed               = 2.5;
 		drawState           = dState;
 		state               = NEUTRAL;
 		sizeReducedPerHit   = 0.9;
@@ -35,10 +35,7 @@ public:
 	}
 
 	//unique functions
-	void MoveForward()  { drawState = state = FORWARD; }
-	void MoveBackward() { drawState = state = BACKWARD; }
-	void MoveUpward()   { drawState = state = UPWARD; }
-	void MoveDownward() { drawState = state = DOWNWARD; }
+	void Move(int st);
 	void StopMovement() { state = NEUTRAL; }
 	void ReduceSize();
 	bool RageMode()     { return health <= criticalHealth ? true : false; }
@@ -76,6 +73,16 @@ public:
 
 
 
+void Player:: Move(int st)
+{
+	if (st > 6) return;
+	if (st == RANDOM)
+		st = rand() % 4;
+	
+	drawState = state = st;
+
+	
+}
 
 
 

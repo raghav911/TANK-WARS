@@ -49,7 +49,7 @@ public:
 	virtual int GetDrawState()                    { return drawState; }
 	virtual int GetState()                        { return state; }
 	virtual int GetSize()                         { return height; }
-	virtual Color GetPlayerColor()                { return color; }
+	virtual Color GetColor()                      { return color; }
 	virtual Vector2 GetCentre()                   { return centre; }
 	virtual string GetType()                      { return "gameobject"; }
 	virtual bool IsDead()                         { return health <= 0 ? true : false; }

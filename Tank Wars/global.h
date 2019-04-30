@@ -90,7 +90,7 @@ void MouseFunc(int button, int state, int x, int y)
 {
 	y = -y + GAME_HEIGHT;
 	if(state==GLUT_DOWN)
-	PlayerControls((int)button, MOUSE);
+	PlayerControls(button,MOUSE);
 
 	if (isGamepaused)
 	{
@@ -98,6 +98,7 @@ void MouseFunc(int button, int state, int x, int y)
 		yMouseClick = y;
 	}
 }
+
 //---------------------~>[ Keyboard ]<~---------------------
 void Keyboard(unsigned char key, int, int)
 {
@@ -115,7 +116,11 @@ void Keyboard(unsigned char key, int, int)
 		break;
 	case 'p':
 		isGamepaused = !isGamepaused;
-		//Canvas::Update();
+		break;
+	case 'b':
+		autoPlay = !autoPlay;
+		if (autoPlay)
+			BotPlay(botReactionTime);
 		break;
 	}
 //----------------------------------------------------------------------------------------
@@ -154,7 +159,7 @@ void Keyboard(unsigned char key, int, int)
 //---------------------~>[ Keyboard_Special ]<~---------------------
 void KeyboardSpec(int key, int, int)
 {
-	PlayerControls(key, KEYBOARDSPECIAL);
+	PlayerControls(key,KEYBOARDSPECIAL);
 	
 	//map design helpers
 	//switch(key)
@@ -223,26 +228,26 @@ void P2Shoots()					//P2 Shooting Controls
 }
 
 
-void PlayerControls(int key,int controllerType)
+void PlayerControls(int key,ControllerState controller)
 {
 	if (isGamepaused)  return;
-	switch (controllerType)//who is calling this 
+	//P1Controls
+	if (P1Alive)
 	{
-	case KEYBOARD:
-		if(P1Alive)//Player 1 Controls
+		if(controller==KEYBOARD)
 		switch (key)
 		{
 		case 'w':
-			P1->MoveUpward();
+			P1->Move(UPWARD);
 			break;
 		case 's':
-			P1->MoveDownward();
+			P1->Move(DOWNWARD);
 			break;
 		case 'd':
-			P1->MoveForward();
+			P1->Move(FORWARD);
 			break;
 		case 'a':
-			P1->MoveBackward();
+			P1->Move(BACKWARD);
 			break;
 		case 'f':
 			//P1->Dash();
@@ -250,46 +255,45 @@ void PlayerControls(int key,int controllerType)
 		case 32://P1 Shoots(space)
 			P1Shoots();
 			break;
-			//P1 controls ends here
-		case 13://P2 Shoots
-			P2Shoots();
 		}
-		//keyboard ends here
-		break;
-	//-----------------:~> 2nd CASE <~:-----------------
-	case KEYBOARDSPECIAL:
-		if(P2Alive)//P2 Alive
-		switch (key)//P2 Controls
-		{
-		case GLUT_KEY_UP:
-			P2->MoveUpward();
-			break;
-		case GLUT_KEY_DOWN:
-			P2->MoveDownward();
-			break;
-		case GLUT_KEY_RIGHT:
-			P2->MoveForward();
-			break;
-		case GLUT_KEY_LEFT:
-			P2->MoveBackward();
-			break;
-		}
-		//Keyboard_Special ends here
-		break;
-	//-----------------:~> 3rd CASE <~:-----------------
-	case MOUSE:
-		if(P2Alive)
-		switch (key)
-		{
-		case GLUT_LEFT_BUTTON:
-			P2Shoots();
-			break;
-		}
-	
-		//MOUSE ends here
-		break;
-	}//switch controller type ends here
+	}
+
+	//P2 Controls
+	if (P2Alive && !autoPlay)
+	{
+		if (controller == KEYBOARDSPECIAL)
+			switch (key)
+			{
+			case GLUT_KEY_UP:
+				P2->Move(UPWARD);
+				break;
+			case GLUT_KEY_DOWN:
+				P2->Move(DOWNWARD);
+				break;
+			case GLUT_KEY_RIGHT:
+				P2->Move(FORWARD);
+				break;
+			case GLUT_KEY_LEFT:
+				P2->Move(BACKWARD);
+				break;
+			}
+		if (controller == KEYBOARD)
+			switch (key)
+			{
+			case 13://enter
+				P2Shoots();
+				break;
+			}
+		if (controller == MOUSE)
+			switch (key)
+			{
+			case GLUT_LEFT_BUTTON:
+				P2Shoots();
+				break;
+			}
+	}
 }
+
 
 //---------------------~>[ RESET GAME ]<~---------------------
 
@@ -314,8 +318,10 @@ void DrawPlayers()
 
 void ResetGame()
 {
-	Level::RandomLevel(gameObstacles);
-	//Level::BasicLevel(gameObstacles);
+	if(GAME_WIDTH== 1355 && GAME_HEIGHT== 720)
+	 Level::RandomLevel(gameObstacles);
+	else
+	 Level::BasicLevel(gameObstacles);
 
 	P1Bullet.clear();
 	P1Alive = true;

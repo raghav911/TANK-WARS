@@ -8,6 +8,8 @@
 #include<sstream>
 #define _USE_MATH_DEFINES
 #include<math.h>
+#include<random>
+#include<ctime>
 using namespace std;
 
 #include "essentials.h"
@@ -20,7 +22,7 @@ using namespace std;
 #include "GameManager.h"
 #include "canvas.h"
 #include "global.h"
-
+#include "Bot.h"
 void GameHelpSection();
 
 int main(int argc,char** argv)
@@ -32,6 +34,7 @@ int main(int argc,char** argv)
 	GameHelpSection();
 	ResetGame();
 	
+	srand(time(NULL));
 	glutMainLoop();
 	return 0;
 }
@@ -74,3 +77,4 @@ void GameHelpSection()
 
 //THANKS FOR PLAYING
 //MADE BY: SHUBAM SHARMA
+//TANKS DESIGNED BY : AKASH SANGWAN

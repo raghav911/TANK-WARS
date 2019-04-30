@@ -4,15 +4,12 @@
 //This File is Responsible for all the Physics,Collisions,etc Involved in the Game
 
 #include "GameArea.h"
+#include "CollisionDetector.h"
 
 class GameManager
 {
 	//ansilary
-	static bool Obj1ColWithObj2(GameObject *Obj1,GameObject *Obj2);
-	
-	//ansilary
-	static bool BulletsColWithPlayer(vector<Projectile*> &Bullets,Player *P);
-	static bool BulletsColWithObj(vector<Projectile*> &Bullets,GameObject *obj);
+	static bool BulletsColWithGameobj(vector<Projectile*> &Bullets,GameObject *P);
 
 public:
 	//Physics2D
@@ -27,47 +24,15 @@ public:
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<//
 
 //---------------------~>[ P1 collided with P2 ]<~---------------------
-bool GameManager:: Obj1ColWithObj2(GameObject *obj1,GameObject *obj2)
-{
-
-	bool hasCollided = false;
-	Vector2 P1topRight   = obj1->GetTopRight();
-	Vector2 P1bottomLeft = obj1->GetBottomLeft();
-	Vector2 P2topRight   = obj2->GetTopRight();
-	Vector2 P2bottomLeft = obj2->GetBottomLeft();
-
-	double offset=2;
-	switch (obj1->GetState())
-	{
-	case FORWARD:
-		if (P1topRight.y > P2bottomLeft.y+offset && P1bottomLeft.y < P2topRight.y-offset && P1topRight.x >= P2bottomLeft.x && P1topRight.x < P2topRight.x)
-			hasCollided = true;
-		break;
-	case BACKWARD:
-		if (P1topRight.y > P2bottomLeft.y+offset && P1bottomLeft.y < P2topRight.y-offset && P1bottomLeft.x <= P2topRight.x && P1bottomLeft.x > P2bottomLeft.x)
-			hasCollided = true;
-		break;
-	case UPWARD:
-		if (P1topRight.x > P2bottomLeft.x+offset && P1bottomLeft.x < P2topRight.x-offset && P1topRight.y >= P2bottomLeft.y && P1topRight.y < P2topRight.y)
-			hasCollided = true;
-		break;
-	case DOWNWARD:
-		if (P1topRight.x > P2bottomLeft.x+offset && P1bottomLeft.x < P2topRight.x-offset && P1bottomLeft.y <= P2topRight.y && P1bottomLeft.y > P2bottomLeft.y)
-			hasCollided = true;
-		break;
-	}
-
-	return hasCollided;
-}
 
 //---------------------~>[ Bullets Col With P ]<~---------------------
-bool GameManager:: BulletsColWithPlayer(vector<Projectile*> &Bullets, Player *p)
+bool GameManager:: BulletsColWithGameobj(vector<Projectile*> &Bullets, GameObject *p)
 {
 	unsigned int bulletCount = Bullets.size();
 
 	for (int i = 0; i < bulletCount; i++)//player 1 bullets
 	{
-		bool hit = Obj1ColWithObj2(Bullets[i],p);
+		bool hit = CollisionDetector::Obj1ColWithObj2(Bullets[i],p);
 		Vector2 bulletCentre = Bullets[i]->GetCentre();
 		
 		if (bulletCentre.x > GAME_WIDTH || bulletCentre.y > GAME_HEIGHT || bulletCentre.x < 0 || bulletCentre.y < 0 || hit)
@@ -84,28 +49,6 @@ bool GameManager:: BulletsColWithPlayer(vector<Projectile*> &Bullets, Player *p)
 	}//for
 	return false;
 }
-
-bool GameManager::BulletsColWithObj(vector<Projectile*> &Bullets, GameObject *obj)
-{
-	unsigned int bulletCount = Bullets.size();
-
-	for (int i = 0; i < bulletCount; i++)//player 1 bullets
-	{
-		bool hit = Obj1ColWithObj2(Bullets[i], obj);
-		Vector2 bulletCentre = Bullets[i]->GetCentre();
-
-		if (bulletCentre.x > GAME_WIDTH || bulletCentre.y > GAME_HEIGHT || bulletCentre.x < 0 || bulletCentre.y < 0 || hit)
-		{
-			Bullets.erase(Bullets.begin() + i);
-			bulletCount--;
-			if (hit)
-				return true;
-		}
-	}//for
-	return false;
-}
-
-
   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
  //					:~>  ANSILLARY ENDS <~:                      //
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<//
@@ -115,9 +58,9 @@ void GameManager::CheckPlayerPlayerCollision()
 {
 	if (P1 == NULL || P2 == NULL) return;//defence
 
-	if ( Obj1ColWithObj2(P1,P2) )
+	if (CollisionDetector:: Obj1ColWithObj2(P1,P2) )
 		P1->StopMovement();
-	if ( Obj1ColWithObj2(P2,P1) )
+	if (CollisionDetector:: Obj1ColWithObj2(P2,P1) )
 		P2->StopMovement();
 }
 
@@ -127,7 +70,7 @@ void GameManager::CheckBulletPlayerCollision()
 	if (P1 == NULL || P2 == NULL) return;//defence
 
 	//does P1 bullets Collided with P2
-	bool isP2hit = BulletsColWithPlayer(P1Bullet, P2);
+	bool isP2hit = BulletsColWithGameobj(P1Bullet, P2);
 
 	if (isP2hit)
 	{
@@ -144,7 +87,7 @@ void GameManager::CheckBulletPlayerCollision()
 		}
 	}
 	//does P2 bullets Collided with P1
-	bool isP1hit = BulletsColWithPlayer(P2Bullet, P1);
+	bool isP1hit = BulletsColWithGameobj(P2Bullet, P1);
 	if (isP1hit)
 	{
 		P1->ReduceSize();
@@ -168,7 +111,7 @@ void GameManager:: CheckBulletBulletCollision()
 		for (int j = 0; j < P2Bullet.size(); ++j)
 		{
 			//if i bullet of P1 collides with j bullet of P2 then desroy both Bullets
-			if (Obj1ColWithObj2(P1Bullet[i], P2Bullet[j]))
+			if (CollisionDetector:: Obj1ColWithObj2(P1Bullet[i], P2Bullet[j]))
 			{
 				//cache damage of bullets
 				double p1Damage = P1Bullet[i]->GetDamage();
@@ -201,19 +144,19 @@ void GameManager::CheckGameObjectObstacleCollision()
 	for (int i = 0; i < obsCount; ++i)
 	{
 		bool hit;
-		BulletsColWithObj(P1Bullet,gameObstacles[i]);
-		BulletsColWithObj(P2Bullet,gameObstacles[i]);
+		BulletsColWithGameobj(P1Bullet,gameObstacles[i]);
+		BulletsColWithGameobj(P2Bullet,gameObstacles[i]);
 
 		if (P1)
 		{
-			hit = Obj1ColWithObj2(P1, gameObstacles[i]);
+			hit =CollisionDetector:: Obj1ColWithObj2(P1, gameObstacles[i]);
 			if (hit)
 				P1->StopMovement();
 		}
 
 		if (P2)
 		{
-			hit = Obj1ColWithObj2(P2, gameObstacles[i]);
+			hit =CollisionDetector:: Obj1ColWithObj2(P2, gameObstacles[i]);
 			if (hit)
 				P2->StopMovement();
 		}

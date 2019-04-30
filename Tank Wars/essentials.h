@@ -3,21 +3,18 @@
 //#1. Tank Wars
 //This File Contains All the Essential Structs And enums Used in the game.
 #include<GL/glut.h>
+#include<math.h>
 
-int GAME_WIDTH = 1355;									//width of game
-int GAME_HEIGHT=720;									//height of game
+int GAME_WIDTH  = 1355;									//width of game
+int GAME_HEIGHT = 720;									//height of game
 int GAME_MENU_AREA = 55;							    //top area of the game
 
 enum STATE
 {
-	FORWARD=1,BACKWARD,UPWARD,DOWNWARD, NEUTRAL,DASH
+	FORWARD=0,BACKWARD,UPWARD,DOWNWARD, NEUTRAL,DASH,RANDOM
 };
 
-enum ControlState
-{
-	KEYBOARD, KEYBOARDSPECIAL, MOUSE
-};
-
+enum ControllerState{KEYBOARD,MOUSE,KEYBOARDSPECIAL};
 struct Vector2										//point in 2D
 {
 	double x, y;
@@ -31,6 +28,11 @@ struct Vector2										//point in 2D
 	{
 		this->x = x;
 		this->y = y;
+	}
+
+	double operator-(const Vector2 &b)
+	{
+		return abs(sqrt ((x-b.x)*(x-b.x) - (y-b.y)*(y-b.y)));
 	}
 };
 

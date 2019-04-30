@@ -35,7 +35,7 @@ public:
 	string GetType() { return "obstacle"; }
 
 	//Box Collider
-	Vector2 GetTopRight();    //returns topright point of object area
+	Vector2 GetTopRight();     //returns topright point of object area
 	Vector2 GetBottomLeft();   //returns bottomleft point of object area
 
 	

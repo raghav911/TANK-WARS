@@ -11,6 +11,12 @@ Player *P2 = NULL;
 bool P1Alive = true;
 bool P2Alive = true;
 
+
+//BOT
+bool autoPlay = false;
+void BotPlay(int);
+unsigned int botReactionTime = 1;
+
 string P1Score="0000";
 string P2Score="0000";
 
@@ -33,4 +39,4 @@ int xMouseClick = 0;
 int yMouseClick = 0;
 
 void ResetGame();									//defined in "global.h"
-void PlayerControls(int key,int controllerType);	//defined in "global.h"
+void PlayerControls(int key,ControllerState controller);	//defined in "global.h"

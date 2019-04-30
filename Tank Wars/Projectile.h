@@ -9,7 +9,7 @@ class Projectile:public GameObject
 	
 	void init()
 	{
-		speed              = 3.3;
+		speed              = 3.8;
 		height             = 39;
 		width              = 7.2;
 		headRatio          = 2.9;				    //inversely propotional

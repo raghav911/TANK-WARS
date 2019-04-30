@@ -17,22 +17,27 @@
 	#1.) OBSTACLE			  //done
 	#1.) Bullet reflection
 	#2.) Bullet Portal
-	#3.) last bullet stand  
+	#3.) last bullet stand    //done (RAGE_MODE)
 	#4.) Score Display        //done
 	#5.) Player dash ability  //high priority
-	#6.) Shadow Effect in gameName
+	#6.) Shadow Effect in gameName//done
 	#7.) Levels               //done
 	#8.) MENU				  //partially done
 
 
 	//SPECILA POWERS
 	#1.) absorbing life from another Palyer
-	#2.) one shot kill
+	#2.) one shot kill        //alternative done ~> rage mode
 	#3.) Character Selection
 	#4.) MultiThreaded Controls(Last Priority)
 
 
 
 	//REFACTORING
-	#1.) add damage and maxLife in player class
-	#2.) add damageGiven in projectile Class
+	#1.) add damage and maxLife in player class  //done
+	#2.) add damageGiven in projectile Class     //done
+
+
+
+	//some bug in game so please debug it
+	//also refactor the gamemanager ansilary functions
