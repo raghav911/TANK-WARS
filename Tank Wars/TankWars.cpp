@@ -1,4 +1,4 @@
-//TANK WARS
+// Battle Ship
 
 #include "pch.h"
 #include<GL/glut.h>
@@ -76,5 +76,5 @@ void GameHelpSection()
 }
 
 //THANKS FOR PLAYING
-//MADE BY: SHUBAM SHARMA
-//TANKS DESIGNED BY : AKASH SANGWAN
+//MADE BY: Raghav Sharma & Vidhu Shikhar Joshi
+//TANKS DESIGNED BY : Raghav Sharma & Vidhu Shikhar Joshi
