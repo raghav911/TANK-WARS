@@ -1,7 +1,7 @@
 //TANK WARS
 
 #include "pch.h"
-#include<Gl/glut.h>
+#include<GL/glut.h>
 #include<iostream>
 #include <vector>
 #include<stdlib.h>
